@@ -1,0 +1,23 @@
+---
+# tasks file for postgresql# tasks/pg_ssl.yml
+
+- name: check if pg_ssl_cert_file already exists
+  stat: path="{{ pg_ssl_cert_file }}"
+  register: pg_ssl_cert_file_stat
+  tags: postgresql,postgresql-ssl
+
+- name: check if pg_ssl_key_file already exists
+  stat: path="{{ pg_ssl_key_file }}"
+  register: pg_ssl_key_file_stat
+  tags: postgresql,postgresql-ssl
+
+- name: ssl snake oil certs generation
+  command: "openssl req -x509 -sha256 -nodes -days 3650 -newkey rsa:2048 -keyout {{ pg_ssl_key_file }} -out {{ pg_ssl_cert_file }} -subj '/C=ES/ST=Madrid/L=Madrid/OU=Tech/CN={{ ansible_nodename }}'"
+  when: (ansible_os_family == 'RedHat') and (pg_ssl_cert_file_stat.stat.exists == false) and (pg_ssl_key_file_stat.stat.exists == false)
+  tags: postgresql,postgresql-ssl
+
+- name: pg_ssl_key_file set permissions
+  file: path="{{ pg_ssl_key_file }}" mode=0600 owner=postgres
+  register: pg_ssl_key_file_stat
+  tags: postgresql,postgresql-ssl
+
