@@ -1,0 +1,51 @@
+---
+- name: Postgresql | Setting OS specific variables
+  set_fact:
+    pg_major_release: "{{ pg_major_release if pg_major_release is defined else __pg_major_release }}"
+    pg_minor_release: "{{ pg_minor_release if pg_minor_release is defined else __pg_minor_release }}"
+    pg_packages: "{{ pg_packages if pg_packages is defined else __pg_packages }}"
+    pg_config_path: "{{ pg_config_path if pg_config_path is defined else __pg_config_path }}"
+    pg_data_dir: "{{ pg_data_dir if pg_data_dir is defined else __pg_data_dir }}"
+
+- name: Postgresql | Setting OS specific repo variables
+  set_fact:
+    pg_url_rpm: "{{ pg_url_rpm if pg_url_rpm is defined else __pg_url_rpm }}"
+    pg_setup_command: "{{ pg_setup_command if pg_setup_command is defined else __pg_setup_command }}"
+  when: ansible_os_family == 'RedHat'
+
+- name: Postgresql | Setting OS specific repo variables
+  set_fact:
+    pg_deb_repo: "{{ pg_deb_repo if pg_deb_repo is defined else __pg_deb_repo }}"
+    pg_deb_key: "{{ pg_deb_key if pg_deb_key is defined else __pg_deb_key }}"
+  when: ansible_os_family == 'Debian'
+
+- block:
+  - name: Postgresql | Be sure postgresql.org key is present
+    apt_key: url="{{ pg_deb_key }}" state=present
+  - name: Postgresql | Be sure postgresql.org repo packages configured
+    apt_repository: repo="{{ pg_deb_repo }}" state=present filename='postgresqldotorg'
+  - name: Postgresql | Be sure postgresql packages are installed (apt)
+    apt: name="{{ pg_packages }}" state=present update_cache=yes
+  - name: Postgresql | Init database 
+    command: su - postgres -c "{{ pg_usr_path }}/bin/initdb -D {{ pg_data_dir }}"
+    register: initdb_result
+    failed_when: not  "'not empty' in initdb_result.stdout"
+    when: ansible_os_family == 'Debian'
+
+  when: ansible_os_family == 'Debian'
+
+- block:
+  - name: Postgresql | Be sure postgresql repo packages configured
+    yum: name="{{ pg_url_rpm }}" state=present
+  - name: Postgresql | Be sure postgresql is installed (yum)
+    yum: name="{{ pg_packages }}" state=present 
+  when: ansible_os_family == 'RedHat'
+
+# Soft fail if cluster exists
+#
+- name: Postgresql | Init database 
+  command: "{{ pg_setup_command }} initdb"
+  register: initdb_result
+  failed_when: not  "'not empty' in initdb_result.stdout"
+  when: ansible_os_family == 'RedHat'
+

@@ -1,25 +1,20 @@
 # tasks/main.yml
 ---
-- name: set distro-specific variables
-  include_vars: '{{ item }}'
+- name: Postgresql | Gather OS specific variables
+  include_vars: "{{ item }}"
   with_first_found:
-    - '{{ ansible_os_family }}.yml'
-    -  default.yml
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
   tags: postgresql,includes
 
-- name: configure OS parameters
-  include_tasks: pg_os_parameters.yml
-  tags: postgresql,postgresql-os-config
+  #- name: Postgresql | check/create ssl snakeoil certs
+  #include_tasks: ssl.yml
+  #tags: postgresql,postgresql-ssl
 
-- name: check/create ssl snakeoil certs
-  include_tasks: pg_ssl.yml
-  tags: postgresql,postgresql-ssl
-
-- name: install postgresql
-  include_tasks: pg_install.yml
+- name: Postgresql |install postgresql
+  include_tasks: install.yml
   tags: postgresql,postgresql-install
 
-- name: configure postgresql
-  include_tasks: pg_config.yml
-  tags: postgresql,postgresql-config
+  #- name: Postgresql | configure postgresql
+  #  include_tasks: config.yml
+  #  tags: postgresql,postgresql-config
     
