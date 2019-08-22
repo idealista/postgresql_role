@@ -6,15 +6,11 @@
     - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
   tags: postgresql,includes
 
-  #- name: Postgresql | check/create ssl snakeoil certs
-  #include_tasks: ssl.yml
-  #tags: postgresql,postgresql-ssl
-
 - name: Postgresql |install postgresql
   include_tasks: install.yml
   tags: postgresql,postgresql-install
 
-  #- name: Postgresql | configure postgresql
-  #  include_tasks: config.yml
-  #  tags: postgresql,postgresql-config
+- name: Postgresql | configure postgresql
+  include_tasks: config.yml
+  tags: postgresql,postgresql-config
     
