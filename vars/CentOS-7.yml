@@ -17,3 +17,8 @@ __pg_data_dir: "/var/lib/pgsql/{{ pg_basename_version }}/data"
 __pg_setup_command: "{{ pg_usr_path }}/bin/postgresql-{{ pg_major_release }}-setup"
 # If you install 9.6 branch, you must override this value: 
 # pg_setup_command: "{{ pg_usr_path }}/bin/postgresql{{ pg_basename_version }}-setup"
+
+pg_config_files:
+  - pg_hba.conf
+  - pg_ident.conf
+  - postgresql.conf
