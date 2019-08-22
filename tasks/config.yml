@@ -24,6 +24,6 @@
   tags: postgresql,postgresql-config
 
 - name: be sure postgresqld is running and enabled
-  service: name="{{ postgresql_service }}" state=started enabled=yes
+  service: name="{{ pg_service }}" state=started enabled=yes
   tags: postgresql,postgresql-config
 
