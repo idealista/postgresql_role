@@ -2,7 +2,7 @@
 - name: Postgresql | Gather OS specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
   tags: postgresql,includes
 
 - name: Postgresql | Setting OS specific variables
