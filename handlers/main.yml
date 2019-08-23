@@ -1,9 +1,11 @@
-# handlers/main.yml
- - name: restart postgresql
-   systemd: 
-    name: "{{ pg_service }}" 
+---
+
+- name: restart postgresql
+  systemd:
+    name: "{{ pg_service }}"
     state: restarted
- - name: reload postgresql
-   service: 
-    name: "{{ pg_service }}" 
+
+- name: reload postgresql
+  systemd:
+    name: "{{ pg_service }}"
     state: reloaded

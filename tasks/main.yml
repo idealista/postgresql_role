@@ -22,4 +22,3 @@
 - name: Postgresql | configure postgresql
   include_tasks: config.yml
   tags: postgresql,postgresql-config
-    

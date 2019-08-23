@@ -12,19 +12,19 @@
   when: ansible_os_family == 'Debian'
 
 - block:
-  - name: Postgresql | Be sure postgresql.org key is present
-    apt_key: url="{{ pg_deb_key }}" state=present
-  - name: Postgresql | Be sure postgresql.org repo packages configured
-    apt_repository: repo="{{ pg_deb_repo }}" state=present filename='postgresqldotorg'
-  - name: Postgresql | Be sure postgresql packages are installed (apt)
-    apt: name="{{ pg_packages }}" state=present update_cache=yes
+    - name: Postgresql | Be sure postgresql.org key is present
+      apt_key: url="{{ pg_deb_key }}" state=present
+    - name: Postgresql | Be sure postgresql.org repo packages configured
+      apt_repository: repo="{{ pg_deb_repo }}" state=present filename='postgresqldotorg'
+    - name: Postgresql | Be sure postgresql packages are installed (apt)
+      apt: name="{{ pg_packages }}" state=present update_cache=yes
   when: ansible_os_family == 'Debian'
 
 - block:
-  - name: Postgresql | Be sure postgresql repo packages configured
-    yum: name="{{ pg_url_rpm }}" state=present
-  - name: Postgresql | Be sure postgresql is installed (yum)
-    yum: name="{{ pg_packages }}" state=present 
+    - name: Postgresql | Be sure postgresql repo packages configured
+      yum: name="{{ pg_url_rpm }}" state=present
+    - name: Postgresql | Be sure postgresql is installed (yum)
+      yum: name="{{ pg_packages }}" state=present
   when: ansible_os_family == 'RedHat'
 
 - name: Postgresql | Ensure config directory exists
@@ -44,7 +44,7 @@
   failed_when: not  "'not empty' in initdb_result.stdout"
   when: ansible_os_family == 'Debian'
 
-- name: Postgresql | Init database 
+- name: Postgresql | Init database
   command: "{{ pg_setup_command }} initdb"
   register: initdb_result
   failed_when: not  "'not empty' in initdb_result.stdout"
@@ -52,4 +52,3 @@
 
 - name: Postgresql | Be sure postgresqld is running and enabled
   service: name="{{ pg_service }}" state=started enabled=yes
-

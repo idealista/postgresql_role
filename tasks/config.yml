@@ -2,13 +2,10 @@
 # tasks file for postgresql# tasks/pg_config.yml
 
 - name: Postgresql | Add configuration files
-  template: 
-    src: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/{{ pg_major_release }}/{{ item }}.j2" 
-    dest: "{{ pg_config_dir }}/{{ item }}" 
-    backup: yes
+  template:
+    src: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}/{{ pg_major_release }}/{{ item }}.j2"
+    dest: "{{ pg_config_dir }}/{{ item }}"
+    backup: true
   with_items: "{{ pg_config_files }}"
   notify:
     - reload postgresql
-  tags: postgresql,postgresql-config
-
-
