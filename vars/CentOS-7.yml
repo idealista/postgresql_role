@@ -2,7 +2,7 @@
 __pg_major_release: "11"
 __pg_minor_release: "5-1PGDG.rhel7"
 pg_basename_version: "{{ pg_major_release | regex_replace('\\.','') }}"
-pg_service: "postgresql-{{ pg_major_releasen }}"
+pg_service: "postgresql-{{ pg_major_release }}"
 pg_basename: "postgresql{{ pg_basename_version }}"
 __pg_url_rpm: "https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/pgdg-centos11-11-2.noarch.rpm"
 __pg_packages: 
@@ -11,8 +11,9 @@ __pg_packages:
    - "{{ pg_basename }}-contrib-{{ pg_major_release }}.{{ pg_minor_release }}"
    - "{{ pg_basename }}-libs-{{ pg_major_release }}.{{ pg_minor_release }}"
 pg_usr_path: "/usr/pgsql-{{ pg_major_release }}"
-__pg_config_path: "/var/lib/pgsql/{{ pg_basename_version }}/data"
+__pg_config_dir: "/var/lib/pgsql/{{ pg_basename_version }}/data"
 __pg_data_dir: "/var/lib/pgsql/{{ pg_basename_version }}/data"
+__pg_logs_dir: "/var/log/postgresql"
 
 __pg_setup_command: "{{ pg_usr_path }}/bin/postgresql-{{ pg_major_release }}-setup"
 # If you install 9.6 branch, you must override this value: 
@@ -22,3 +23,5 @@ pg_config_files:
   - pg_hba.conf
   - pg_ident.conf
   - postgresql.conf
+
+

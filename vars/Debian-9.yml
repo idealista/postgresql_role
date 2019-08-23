@@ -15,8 +15,9 @@ __pg_packages:
 __pg_major_release: "11"
 __pg_minor_release: "5-1.pgdg90+1"
 pg_usr_path: "/usr/lib/postgresql/{{ pg_major_release }}"
-__pg_config_path: "/etc/postgresql/{{ pg_basename_version }}/main"
+__pg_config_dir: "/etc/postgresql/{{ pg_basename_version }}/main"
 __pg_data_dir: "/var/lib/postgresql/{{ pg_basename_version }}/main"
+__pg_logs_dir: "/var/log/postgresql"
 
 pg_config_files:
   - environment
