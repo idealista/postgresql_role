@@ -1,0 +1,35 @@
+# Molecule managed
+
+---
+file:
+  {{ pg_data_dir }}:
+    exists: true
+    filetype: directory
+    owner: {{ pg_user }}
+    group: {{ pg_group }}
+  {{ pg_config_dir }}:
+    exists: true
+    filetype: directory
+    owner: {{ pg_user }}
+    group: {{ pg_group }}
+  {{ pg_logs_dir }}:
+    exists: true
+    filetype: directory
+    owner: {{ pg_user }}
+    group: {{ pg_group }}
+{% for item in pg_config_files %}
+{{ pg_config_dir }}/{{ item }}:
+    exists: true
+    owner: {{ pg_user }}
+    group: {{ pg_group }}
+    filetype: file
+{% endfor %}
+
+service:
+  {{ pg_service }}:
+    enabled: true
+    running: true
+
+port:
+  tcp:{{ pg_port }}:
+    listening: true
