@@ -42,12 +42,14 @@
   become: true
   become_user: "{{ pg_user }}"
   failed_when: not  "'not empty' in initdb_result.stdout"
+  changed_when: not  "'not empty' in initdb_result.stdout"
   when: ansible_os_family == 'Debian'
 
 - name: Postgresql | Init database
   command: "{{ pg_setup_command }} initdb"
   register: initdb_result
   failed_when: not  "'not empty' in initdb_result.stdout"
+  changed_when: not  "'not empty' in initdb_result.stdout"
   when: ansible_os_family == 'RedHat'
 
 - name: Postgresql | Be sure postgresqld is running and enabled

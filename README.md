@@ -20,7 +20,7 @@ This Ansible role installs an Postgresql server in a Debian environment.
 
 ## Getting Started
 
-These instructions will get you a copy of the role for your Ansible playbook. Once launched, it will install an [Postgresql](https://www.postgresql.org/) server in a Debian system.
+These instructions will get you a copy of the role for your Ansible playbook. Once launched, it will install an [Postgresql](https://www.postgresql.org/) server in a Debian or CentOS system.
 
 ### Prerequisities
 Ansible >=2.7.0 version installed.
