@@ -6,3 +6,9 @@
 # I. e. you need to enclose any value which does not only consist of letters,
 # numbers, and '-', '_', '.' in single quotes. Shell commands are not
 # evaluated.
+#
+{% if ( pg_environment_vars is defined ) -%}
+{% for key,value in pg_environment_vars.items() %}
+{{ key }}={{ value }}
+{% endfor %}
+{% endif %}

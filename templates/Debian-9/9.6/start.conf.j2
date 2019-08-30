@@ -6,4 +6,4 @@
 # See pg_createcluster(1) for details. When running from systemd,
 # invoke 'systemctl daemon-reload' after editing this file.
 
-auto
+{{ pg_automatic_startup_configuration | default('auto') }}
