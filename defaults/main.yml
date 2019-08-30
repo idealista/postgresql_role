@@ -4,9 +4,10 @@ pg_group: postgres
 pg_port: 5432
 
 # Only for Debian 9 env
-#pg_environment_vars:
-#  TEST1: test1val
-#  TEST2: test2val
-#pg_automatic_startup_configuration: auto
+# pg_environment_vars:
+#   TEST1: test1val
+#   TEST2: test2val
+pg_automatic_startup_configuration: auto
+# pg_ctl_options: --option1 --option2
 
 

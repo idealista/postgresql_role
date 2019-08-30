@@ -9,3 +9,4 @@
   systemd:
     name: "{{ pg_service }}"
     state: reloaded
+    daemon_reload: true
