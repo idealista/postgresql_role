@@ -4,10 +4,17 @@ pg_group: postgres
 pg_port: 5432
 
 # Only for Debian 9 env
+# Vars for environment config file:
 # pg_environment_vars:
 #   TEST1: test1val
 #   TEST2: test2val
+# Vars for startup config file:
 pg_automatic_startup_configuration: auto
+# Vars for pg_ctl config file:
 # pg_ctl_options: --option1 --option2
 
-
+# Common config variables:
+# Vars for pg_ident config file:
+# pg_user_mapping:
+#   - "omicron         bryanh                  bryanh"
+#   - "omicron         robert                  bob"
