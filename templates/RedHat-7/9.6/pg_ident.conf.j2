@@ -41,7 +41,7 @@
 # ----------------------------------
 
 # MAPNAME       SYSTEM-USERNAME         PG-USERNAME
-{% if ( pg_user_mapping is defined ) -%}
+{% if ( pg_user_mapping is defined ) %}
 {% for item in pg_user_mapping %}
 {{ item }}
 {% endfor %}
