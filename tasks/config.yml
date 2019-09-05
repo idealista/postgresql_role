@@ -4,7 +4,7 @@
 - name: Postgresql | Add configuration files
   template:
     src: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}/{{ pg_major_release }}/{{ item }}.j2"
-    dest: "{{ pg_config_dir }}/{{ item }}"
+    dest: "{{ pg_config_directory }}/{{ item }}"
     backup: true
   with_items: "{{ pg_config_files }}"
   notify:

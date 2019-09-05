@@ -11,9 +11,9 @@ __pg_packages:
    - "{{ pg_basename }}-contrib-{{ pg_major_release }}.{{ pg_minor_release }}"
    - "{{ pg_basename }}-libs-{{ pg_major_release }}.{{ pg_minor_release }}"
 pg_usr_path: "/usr/pgsql-{{ pg_major_release }}"
-__pg_config_dir: "/var/lib/pgsql/{{ pg_major_release }}/data"
-__pg_data_dir: "/var/lib/pgsql/{{ pg_major_release }}/data"
-__pg_logs_dir: "/var/log/postgresql"
+__pg_config_directory: "/var/lib/pgsql/{{ pg_major_release }}/data"
+__pg_data_directory: "/var/lib/pgsql/{{ pg_major_release }}/data"
+__pg_log_directory: "/var/log/postgresql"
 
 __pg_setup_command: "{{ pg_usr_path }}/bin/postgresql-{{ pg_major_release }}-setup"
 # If you install 9.6 branch, you must override this value:
