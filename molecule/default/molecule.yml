@@ -7,110 +7,29 @@ lint:
   name: yamllint
 
 platforms:
-  - name: postgres96d
-    image: ${DOCKER_IMAGE_BASE:-debian:stretch-slim}
+  - name: postgres
+    image: ${DOCKER_BASE_IMAGE:-debian:stretch-slim}
     privileged: false
     capabilities:
       - SYS_ADMIN
     volumes:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-      - '/sys/fs/fuse/connections:/sys/fs/fuse/connections:ro'
-      - '/dev/hugepages:/dev/hugepages'
     groups:
-      - postgres96
+      - pggroup
     tmpfs:
       - '/tmp'
       - '/run'
       - '/run/lock'
     command: '/lib/systemd/systemd'
-  - name: postgres96c
-    image: ${DOCKER_IMAGE_BASE:-centos:7}
-    privileged: false
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-      - '/sys/fs/fuse/connections:/sys/fs/fuse/connections:ro'
-      - '/dev/hugepages:/dev/hugepages'
-    groups:
-      - postgres96
-    tmpfs:
-      - '/tmp'
-      - '/run'
-      - '/run/lock'
-    command: '/lib/systemd/systemd'
-
-  - name: postgres10d
-    image: ${DOCKER_IMAGE_BASE:-debian:stretch-slim}
-    privileged: false
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-      - '/sys/fs/fuse/connections:/sys/fs/fuse/connections:ro'
-      - '/dev/hugepages:/dev/hugepages'
-    groups:
-      - postgres10
-    tmpfs:
-      - '/tmp'
-      - '/run'
-      - '/run/lock'
-    command: '/lib/systemd/systemd'
-  - name: postgres10c
-    image: ${DOCKER_IMAGE_BASE:-centos:7}
-    privileged: false
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-      - '/sys/fs/fuse/connections:/sys/fs/fuse/connections:ro'
-      - '/dev/hugepages:/dev/hugepages'
-    groups:
-      - postgres10
-    tmpfs:
-      - '/tmp'
-      - '/run'
-      - '/run/lock'
-    command: '/lib/systemd/systemd'
-  - name: postgres11d
-    image: ${DOCKER_IMAGE_BASE:-debian:stretch-slim}
-    privileged: false
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-      - '/sys/fs/fuse/connections:/sys/fs/fuse/connections:ro'
-      - '/dev/hugepages:/dev/hugepages'
-    groups:
-      - postgres11
-    tmpfs:
-      - '/tmp'
-      - '/run'
-      - '/run/lock'
-    command: '/lib/systemd/systemd'
-  - name: postgres11c
-    image: ${DOCKER_IMAGE_BASE:-centos:7}
-    privileged: false
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-      - '/sys/fs/fuse/connections:/sys/fs/fuse/connections:ro'
-      - '/dev/hugepages:/dev/hugepages'
-    groups:
-      - postgres11
-    tmpfs:
-      - '/tmp'
-      - '/run'
-      - '/run/lock'
-    command: '/lib/systemd/systemd'
-
 
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
-
+  inventory:
+    group_vars:
+      pggroup:
+        pg_major_release: ${PG_MAJOR_RELEASE:-11}
 scenario:
   name: default
 
