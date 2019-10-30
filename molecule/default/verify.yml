@@ -7,8 +7,9 @@
   hosts: all
   become: true
   vars:
-    goss_version: v0.3.6
+    goss_version: v0.3.7
     goss_arch: amd64
+    goss_sha256sum: 357f5c7f2e7949b412bce44349cd32ab19eb3947255a8ac805f884cc2c
     goss_dst: /usr/local/bin/goss
     goss_url: "https://github.com/aelsabbahy/goss/releases/download/{{ goss_version }}/goss-linux-{{ goss_arch }}"
     goss_test_directory: /tmp
@@ -18,14 +19,6 @@
     - ../../defaults/main.yml
     - ../../vars/{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml
   tasks:
-    - name: Postgresql | Setting OS specific variables
-      set_fact:
-        pg_major_release: "{{ pg_major_release if pg_major_release is defined else __pg_major_release }}"
-        pg_minor_release: "{{ pg_minor_release if pg_minor_release is defined else __pg_minor_release }}"
-        pg_packages: "{{ pg_packages if pg_packages is defined else __pg_packages }}"
-        pg_config_directory: "{{ pg_config_directory if pg_config_directory is defined else __pg_config_directory }}"
-        pg_data_directory: "{{ pg_data_directory if pg_data_directory is defined else __pg_data_directory }}"
-        pg_log_directory: "{{ pg_log_directory if pg_log_directory is defined else __pg_log_directory }}"
 
     - name: Download and install Goss
       get_url:
