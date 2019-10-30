@@ -1,0 +1,4 @@
+---
+__pg_packages:
+  - "{{ pg_basename }}={{ pg_major_release }}"
+  - "postgresql-contrib-{{ pg_basename_version }}={{ pg_major_release }}"

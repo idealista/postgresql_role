@@ -1,0 +1,30 @@
+---
+__pg_major_release: "11"
+pg_basename_version: "{{ pg_major_release | regex_replace('\\.','') }}"
+pg_service: "postgresql-{{ pg_major_release }}"
+pg_basename: "postgresql{{ pg_basename_version }}"
+__pg_url_rpm: "https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/pgdg-centos11-11-2.noarch.rpm"
+__pg_packages:
+   - "{{ pg_basename }}-{{ pg_major_release }}.{{ pg_minor_release }}"
+   - "{{ pg_basename }}-server-{{ pg_major_release }}.{{ pg_minor_release }}"
+   - "{{ pg_basename }}-contrib-{{ pg_major_release }}.{{ pg_minor_release }}"
+   - "{{ pg_basename }}-libs-{{ pg_major_release }}.{{ pg_minor_release }}"
+# If you want to set the minor release:
+#   - "{{ pg_basename }}-{{ pg_major_release }}.{{ pg_minor_release }}"
+#   - "{{ pg_basename }}-server-{{ pg_major_release }}.{{ pg_minor_release }}"
+#   - "{{ pg_basename }}-contrib-{{ pg_major_release }}.{{ pg_minor_release }}"
+#   - "{{ pg_basename }}-libs-{{ pg_major_release }}.{{ pg_minor_release }}"
+# And, for example:
+# pg_minor_release: "5-1PGDG.rhel7"
+
+pg_usr_path: "/usr/pgsql-{{ pg_major_release }}"
+__pg_config_directory: "/var/lib/pgsql/{{ pg_major_release }}/data"
+__pg_data_directory: "/var/lib/pgsql/{{ pg_major_release }}/data"
+__pg_log_directory: "/var/log/postgresql"
+
+__pg_setup_command: "{{ pg_usr_path }}/bin/postgresql-{{ pg_major_release }}-setup"
+
+pg_config_files:
+   - pg_hba.conf
+   - pg_ident.conf
+   - postgresql.conf
