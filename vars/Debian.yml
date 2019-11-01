@@ -9,7 +9,7 @@ __pg_packages:
    - "{{ pg_basename }}"
 # If you want to set the minor release:
 #  - "{{ pg_basename }}={{ pg_major_release }}.{{ pg_minor_release }}"
-#  And, for example: 
+#  And, for example:
 # pg_minor_release: "5-1.pgdg90+1"
 
 pg_usr_path: "/usr/lib/postgresql/{{ pg_major_release }}"
