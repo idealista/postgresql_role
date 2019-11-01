@@ -33,3 +33,17 @@ service:
 port:
   tcp:{{ pg_port }}:
     listening: true
+
+command:
+  pgisready:
+    # required attributes
+    exit-status: 0
+    # defaults to hash key
+    exec: "{{ pg_usr_path }}/bin/pg_isready"
+    # optional attributes
+    stdout:
+      - "accepting connections"
+    stderr: []
+    timeout: 10000 # in milliseconds
+    skip: false
+
