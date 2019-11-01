@@ -1,4 +1,5 @@
 ---
+
 - name: Postgresql | Gather OS specific variables
   include_vars: "{{ item }}"
   with_first_found:
@@ -19,7 +20,6 @@
 
 - name: Postgresql | Setting OS specific variables (II)
   set_fact:
-    pg_minor_release: "{{ pg_minor_release if pg_minor_release is defined else __pg_minor_release }}"
     pg_packages: "{{ pg_packages if pg_packages is defined else __pg_packages }}"
     pg_config_directory: "{{ pg_config_directory if pg_config_directory is defined else __pg_config_directory }}"
     pg_data_directory: "{{ pg_data_directory if pg_data_directory is defined else __pg_data_directory }}"
@@ -32,4 +32,9 @@
 
 - name: Postgresql | Configure postgresql
   include_tasks: config.yml
+  tags: postgresql,postgresql-config
+
+- name: Postgresql | OS tuning
+  include_tasks: os-tuning.yml
+  when: pg_os_tuning
   tags: postgresql,postgresql-config

@@ -22,3 +22,19 @@ pg_automatic_startup_configuration: auto
 #   - "host alicedb alice 192.168.1.0/24  md5"
 #   - "host bobdb bob 192.168.1.0/24  md5"
 #
+# Usually you must review the next kernel parameters.
+# Because postgresql recommendations, see:
+# https://www.postgresql.org/docs/current/kernel-resources.html
+#
+pg_os_tuning: true
+# pg_os_fs_file_max
+# pg_os_kernel_sem
+# pg_os_kernel_shmmax
+# pg_os_kernel_shmall
+#
+# Because dirty pages control, see:
+# Low write performance on SLES 11/12 servers with large RAM
+# https://www.suse.com/es-es/support/kb/doc/?id=7010287
+#
+# pg_os_vm_dirty_bytes
+# pg_os_vm_dirty_background_bytes
