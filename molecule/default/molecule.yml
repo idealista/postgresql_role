@@ -30,6 +30,7 @@ provisioner:
     group_vars:
       pggroup:
         pg_major_release: ${PG_MAJOR_RELEASE:-11}
+        pg_os_tuning: false
 scenario:
   name: default
 
