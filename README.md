@@ -23,10 +23,10 @@ This Ansible role installs an Postgresql server in a Debian environment.
 These instructions will get you a copy of the role for your Ansible playbook. Once launched, it will install an [Postgresql](https://www.postgresql.org/) server in a Debian or RHEL system.
 
 ### Prerequisities
-Ansible >=2.7.0 version installed.
+Ansible >=2.8.x.x version installed.
 Inventory destination should be a Debian or RHEL environment.
 
-For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Docker](https://www.docker.com/) as driver. Pipenv 2018.11.26 and Python 3.7 recommended.
+For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Docker](https://www.docker.com/) as driver. Pipenv 2018.11.26 and Python 3 recommended.
 
 ### Installing
 
@@ -55,7 +55,7 @@ Use in a playbook:
 
 ## Usage
 
-Look to the [defaults vars](defaults/main.yml) and [specific](vars/Debian-9.yml) [OS related](vars/Centos-7) files to see the possible configuration vars.
+Look to the [defaults vars](defaults/) and [specific OS related](vars/) files to see all the possible configuration vars.
 
 ## Testing
 
@@ -68,8 +68,8 @@ See [molecule.yml](https://github.com/idealista/postgresql_role/blob/master/mole
 
 ## Built With
 
-![Ansible](https://img.shields.io/badge/ansible-2.7.7-green.svg)
-![Molecule](https://img.shields.io/badge/molecule-2.19.0-green.svg)
+![Ansible](https://img.shields.io/badge/ansible-2.8.6-green.svg)
+![Molecule](https://img.shields.io/badge/molecule-2.22.0-green.svg)
 
 ## Versioning
 
