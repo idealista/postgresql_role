@@ -5,7 +5,7 @@
 
 # PostgreSQL Ansible role
 
-This Ansible role installs an PostgreSQL server in a Debian environment.
+This Ansible role installs an PostgreSQL server in a Debian or RHEL environment.
 
 - [Getting Started](#getting-started)
 	- [Prerequisities](#prerequisities)
