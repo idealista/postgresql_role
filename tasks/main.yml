@@ -27,7 +27,7 @@
   tags: postgresql,includes
 
 - name: PostgreSQL | Install postgresql
-  include_tasks: install.yml
+  include_tasks: "install-{{ ansible_os_family }}.yml"
   tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Configure postgresql
