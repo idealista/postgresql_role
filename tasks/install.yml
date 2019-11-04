@@ -1,43 +1,43 @@
 ---
 
-- name: Postgresql | Setting more OS specific variables (Debian)
+- name: PostgreSQL | Setting more OS specific variables (Debian)
   set_fact:
     pg_deb_repo: "{{ pg_deb_repo if pg_deb_repo is defined else __pg_deb_repo }}"
     pg_deb_key: "{{ pg_deb_key if pg_deb_key is defined else __pg_deb_key }}"
   when: ansible_os_family == 'Debian'
 
-- name: Postgresql | Setting more OS specific variables (RHEL)
+- name: PostgreSQL | Setting more OS specific variables (RHEL)
   set_fact:
     pg_url_rpm: "{{ pg_url_rpm if pg_url_rpm is defined else __pg_url_rpm }}"
     pg_setup_command: "{{ pg_setup_command if pg_setup_command is defined else __pg_setup_command }}"
   when: ansible_os_family == 'RedHat'
 
 - block:
-    - name: Postgresql | Be sure postgresql.org key is present
+    - name: PostgreSQL | Be sure postgresql.org key is present
       apt_key: url="{{ pg_deb_key }}" state=present
-    - name: Postgresql | Be sure postgresql.org repo packages configured (deb)
+    - name: PostgreSQL | Be sure postgresql.org repo packages configured (deb)
       apt_repository: repo="{{ pg_deb_repo }}" state=present filename='postgresqldotorg'
-    - name: Postgresql | Be sure postgresql packages are installed (apt)
+    - name: PostgreSQL | Be sure postgresql packages are installed (apt)
       apt: name="{{ pg_packages }}" state=present update_cache=yes
   when: ansible_os_family == 'Debian'
 
 - block:
-    - name: Postgresql | Be sure postgresql repo packages configured (yum)
+    - name: PostgreSQL | Be sure postgresql repo packages configured (yum)
       yum: name="{{ pg_url_rpm }}" state=present
-    - name: Postgresql | Be sure postgresql is installed (yum)
+    - name: PostgreSQL | Be sure postgresql is installed (yum)
       yum: name="{{ pg_packages }}" state=present
   when: ansible_os_family == 'RedHat'
 
-- name: Postgresql | Ensure config directory exists
+- name: PostgreSQL | Ensure config directory exists
   file: state=directory path="{{ pg_config_directory }}" owner="{{ pg_user }}" group="{{ pg_group }}" mode=0700
-- name: Postgresql | Ensure data directory exists
+- name: PostgreSQL | Ensure data directory exists
   file: state=directory path="{{ pg_data_directory }}" owner="{{ pg_user }}" group="{{ pg_group }}" mode=0700
-- name: Postgresql | Ensure logs directory exists
+- name: PostgreSQL | Ensure logs directory exists
   file: state=directory path="{{ pg_log_directory }}" owner="{{ pg_user }}" group="{{ pg_group }}" mode=0700
 
 # Soft fail if cluster exists
 #
-- name: Postgresql | Init database (Debian)
+- name: PostgreSQL | Init database (Debian)
   command: "{{ pg_usr_path }}/bin/initdb -D {{ pg_data_directory }}"
   register: initdb_result
   become: true
@@ -46,12 +46,12 @@
   changed_when: not  "'not empty' in initdb_result.stdout"
   when: ansible_os_family == 'Debian'
 
-- name: Postgresql | Init database (RHEL)
+- name: PostgreSQL | Init database (RHEL)
   command: "{{ pg_setup_command }} initdb"
   register: initdb_result
   failed_when: not  "'not empty' in initdb_result.stdout"
   changed_when: not  "'not empty' in initdb_result.stdout"
   when: ansible_os_family == 'RedHat'
 
-- name: Postgresql | Be sure postgresqld is running and enabled
+- name: PostgreSQL | Be sure postgresqld is running and enabled
   service: name="{{ pg_service }}" state=started enabled=yes

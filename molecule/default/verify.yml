@@ -19,7 +19,7 @@
     - ../../defaults/main.yml
     - ../../vars/{{ ansible_os_family }}.yml
   tasks:
-    - name: Postgresql | Setting OS specific variables
+    - name: PostgreSQL | Setting OS specific variables
       set_fact:
         pg_major_release: "{{ pg_major_release if pg_major_release is defined else __pg_major_release }}"
         pg_packages: "{{ pg_packages if pg_packages is defined else __pg_packages }}"

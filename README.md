@@ -3,9 +3,9 @@
 [![Build Status](https://travis-ci.org/idealista/postgresql_role.png)](https://travis-ci.org/idealista/postgresql_role)
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-idealista.postgresql__role-B62682.svg)](https://galaxy.ansible.com/idealista/postgresql_role)
 
-# Postgresql Ansible role
+# PostgreSQL Ansible role
 
-This Ansible role installs an Postgresql server in a Debian environment.
+This Ansible role installs an PostgreSQL server in a Debian environment.
 
 - [Getting Started](#getting-started)
 	- [Prerequisities](#prerequisities)
@@ -20,7 +20,7 @@ This Ansible role installs an Postgresql server in a Debian environment.
 
 ## Getting Started
 
-These instructions will get you a copy of the role for your Ansible playbook. Once launched, it will install an [Postgresql](https://www.postgresql.org/) server in a Debian or RHEL system.
+These instructions will get you a copy of the role for your Ansible playbook. Once launched, it will install an [PostgreSQL](https://www.postgresql.org/) server in a Debian or RHEL system.
 
 ### Prerequisities
 Ansible >=2.8.x.x version installed.

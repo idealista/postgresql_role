@@ -1,7 +1,7 @@
 ---
 # tasks file for postgresql# tasks/pg_config.yml
 
-- name: Postgresql | Add configuration files
+- name: PostgreSQL | Add configuration files
   template:
     src: "{{ pg_config_templates_path }}/{{ item }}.j2"
     dest: "{{ pg_config_directory }}/{{ item }}"
