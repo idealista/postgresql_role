@@ -20,7 +20,7 @@ env:
     - DOCKER_BASE_IMAGE=centos:7 PG_MAJOR_RELEASE=9.6
 script:
   - export DOCKER_BASE_IMAGE=${DOCKER_BASE_IMAGE}
-  - export DOCKER_BASE_IMAGE=${PG_MAJOR_RELEASE}
+  - export PG_MAJOR_RELEASE=${PG_MAJOR_RELEASE}
   - pipenv run molecule test
 
 notifications:
