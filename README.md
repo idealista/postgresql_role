@@ -23,7 +23,7 @@ This Ansible role installs an PostgreSQL server in a Debian environment.
 These instructions will get you a copy of the role for your Ansible playbook. Once launched, it will install an [PostgreSQL](https://www.postgresql.org/) server in a Debian or RHEL system.
 
 ### Prerequisities
-Ansible >=2.8.x.x version installed.
+Ansible >=2.9.x.x version installed.
 Inventory destination should be a Debian or RHEL environment.
 
 For testing purposes, [Molecule](https://molecule.readthedocs.io/) with [Docker](https://www.docker.com/) as driver. Pipenv 2018.11.26 and Python 3 recommended.
@@ -68,7 +68,7 @@ See [molecule.yml](https://github.com/idealista/postgresql_role/blob/master/mole
 
 ## Built With
 
-![Ansible](https://img.shields.io/badge/ansible-2.8.6-green.svg)
+![Ansible](https://img.shields.io/badge/ansible-2.9.0-green.svg)
 ![Molecule](https://img.shields.io/badge/molecule-2.22.0-green.svg)
 
 ## Versioning
