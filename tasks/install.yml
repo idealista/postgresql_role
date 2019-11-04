@@ -29,11 +29,16 @@
   when: ansible_os_family == 'RedHat'
 
 - name: PostgreSQL | Ensure config directory exists
-  file: state=directory path="{{ pg_config_directory }}" owner="{{ pg_user }}" group="{{ pg_group }}" mode=0700
-- name: PostgreSQL | Ensure data directory exists
-  file: state=directory path="{{ pg_data_directory }}" owner="{{ pg_user }}" group="{{ pg_group }}" mode=0700
-- name: PostgreSQL | Ensure logs directory exists
-  file: state=directory path="{{ pg_log_directory }}" owner="{{ pg_user }}" group="{{ pg_group }}" mode=0700
+  file:
+    state: directory
+    path: "{{ item }}"
+    owner: "{{ pg_user }}"
+    group: "{{ pg_group }}"
+    mode: 0700
+  with_items:
+    - "{{ pg_config_directory }}"
+    - "{{ pg_data_directory }}"
+    - "{{ pg_log_directory }}"
 
 # Soft fail if cluster exists
 #
