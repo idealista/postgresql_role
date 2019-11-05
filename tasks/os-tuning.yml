@@ -8,4 +8,5 @@
     state: present
     reload: true
   with_dict: "{{ pg_os_tuning_parameters }}"
+  when: pg_os_tuning_parameters is defined
   tags: postgresql,postgresql-os-config
