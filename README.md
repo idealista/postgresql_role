@@ -1,4 +1,4 @@
-![Logo](logo.gif)
+![Logo](https://raw.githubusercontent.com/idealista/postgresql_role/master/logo.gif)
 
 [![Build Status](https://travis-ci.org/idealista/postgresql_role.png)](https://travis-ci.org/idealista/postgresql_role)
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-idealista.postgresql__role-B62682.svg)](https://galaxy.ansible.com/idealista/postgresql_role)
