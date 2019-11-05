@@ -3,6 +3,8 @@ pg_user: postgres
 pg_group: postgres
 pg_port: 5432
 pg_config_templates_path: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}/pg-{{ pg_major_release }}"
+pg_service_state: started
+pg_service_enabled: true
 # Only for Debian 9 env
 # Vars for environment config file:
 # pg_environment_vars:
