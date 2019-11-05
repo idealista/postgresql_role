@@ -14,14 +14,14 @@
     goss_url: "https://github.com/aelsabbahy/goss/releases/download/{{ goss_version }}/goss-linux-{{ goss_arch }}"
     goss_test_directory: /tmp
     goss_format: documentation
-
   vars_files:
-    - ../../defaults/main.yml
-    - ../../vars/{{ ansible_os_family }}.yml
+    - pg_vars.yml
+    - "../../vars/{{ ansible_os_family }}.yml"
+
   tasks:
+
     - name: PostgreSQL | Setting OS specific variables
       set_fact:
-        pg_major_release: "{{ pg_major_release if pg_major_release is defined else __pg_major_release }}"
         pg_packages: "{{ pg_packages if pg_packages is defined else __pg_packages }}"
         pg_config_directory: "{{ pg_config_directory if pg_config_directory is defined else __pg_config_directory }}"
         pg_data_directory: "{{ pg_data_directory if pg_data_directory is defined else __pg_data_directory }}"
