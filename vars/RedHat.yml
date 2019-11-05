@@ -3,7 +3,7 @@ __pg_major_release: "11"
 pg_basename_version: "{{ pg_major_release | regex_replace('\\.','') }}"
 pg_service: "postgresql-{{ pg_major_release }}"
 pg_basename: "postgresql{{ pg_basename_version }}"
-__pg_url_rpm: "https://download.postgresql.org/pub/repos/yum/11/redhat/rhel-7-x86_64/pgdg-centos11-11-2.noarch.rpm"
+__pg_url_rpm: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
 __pg_packages:
    - "{{ pg_basename }}"
    - "{{ pg_basename }}-server"

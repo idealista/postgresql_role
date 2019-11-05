@@ -34,7 +34,7 @@ pg_os_tuning: true
 # Low write performance on SLES 11/12 servers with large RAM
 # https://www.suse.com/es-es/support/kb/doc/?id=7010287
 #
-# THIS IS AN EXAMPLE configuration. The real configuration depends 
+# THIS IS AN EXAMPLE configuration. The real configuration depends
 # on your own host characteristics:
 #
 # pg_os_tuning_parameters:
