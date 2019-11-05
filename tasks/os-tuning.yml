@@ -2,60 +2,10 @@
 
 - name: PostgreSQL | max fs files
   sysctl:
-    name: "fs.file-max"
-    value: "{{ pg_os_fs_file_max }}"
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
     sysctl_set: true
     state: present
     reload: true
-  when: pg_os_fs_file_max is defined
-  tags: postgresql,postgresql-os-config
-
-- name: PostgreSQL | kernel semaphores
-  sysctl:
-    name: "kernel.sem"
-    value: "{{ pg_os_kernel_sem }}"
-    sysctl_set: true
-    state: present
-    reload: true
-  when: pg_os_kernel_sem is defined
-  tags: postgresql,postgresql-os-config
-
-- name: PostgreSQL | maximum size of shared memory segment
-  sysctl:
-    name: "kernel.shmmax"
-    value: "{{ pg_os_kernel_shmmax }}"
-    sysctl_set: true
-    state: present
-    reload: true
-  when: pg_os_kernel_shmmax is defined
-  tags: postgresql,postgresql-os-config
-
-- name: PostgreSQL | total amount of shared memory available
-  sysctl:
-    name: "kernel.shmall"
-    value: "{{ pg_os_kernel_shmall }}"
-    sysctl_set: true
-    state: present
-    reload: true
-  when: pg_os_kernel_shmall is defined
-  tags: postgresql,postgresql-os-config
-
-- name: PostgreSQL | max of dirty system memory
-  sysctl:
-    name: "vm.dirty_bytes"
-    value: "{{ pg_os_vm_dirty_bytes }}"
-    sysctl_set: true
-    state: present
-    reload: true
-  when: pg_os_vm_dirty_bytes is defined
-  tags: postgresql,postgresql-os-config
-
-- name: PostgreSQL | dirty system memory at which background writeback will start
-  sysctl:
-    name: "vm.dirty_background_bytes"
-    value: "{{ pg_os_vm_dirty_background_bytes }}"
-    sysctl_set: true
-    state: present
-    reload: true
-  when: pg_os_vm_dirty_background_bytes is defined
+  with_dict: "{{ pg_os_tuning_parameters }}"
   tags: postgresql,postgresql-os-config
