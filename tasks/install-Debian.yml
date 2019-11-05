@@ -21,7 +21,7 @@
         state: present
         update_cache: true
 
-- name: PostgreSQL | Ensure config directory exists
+- name: PostgreSQL | Ensure needed directories exist
   file:
     state: directory
     path: "{{ item }}"

@@ -15,7 +15,7 @@
         name: "{{ pg_packages }}"
         state: present
 
-- name: PostgreSQL | Ensure config directory exists
+- name: PostgreSQL | Ensure needed directories exist
   file:
     state: directory
     path: "{{ item }}"
