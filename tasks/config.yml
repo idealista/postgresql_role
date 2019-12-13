@@ -1,0 +1,11 @@
+---
+# tasks file for postgresql# tasks/pg_config.yml
+
+- name: PostgreSQL | Add configuration files
+  template:
+    src: "{{ pg_config_templates_path }}/{{ item }}.j2"
+    dest: "{{ pg_config_directory }}/{{ item }}"
+    backup: true
+  with_items: "{{ pg_config_files }}"
+  notify:
+    - reload postgresql
