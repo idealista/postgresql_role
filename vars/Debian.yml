@@ -3,7 +3,7 @@
 pg_basename_version: "{{ pg_major_release }}"
 pg_service: "postgresql"
 pg_basename: "postgresql-{{ pg_basename_version }}"
-__pg_deb_repo: "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main"
+__pg_deb_repo: "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main"
 __pg_deb_key: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
 __pg_packages:
    - "{{ pg_basename }}"
