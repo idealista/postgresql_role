@@ -11,9 +11,11 @@
         name: "{{ pg_url_rpm }}"
         state: present
     - name: PostgreSQL | Disable postgresql module (dnf)
-      command: 
-        cmd: dnf -qy module disable postgresql
+      command:
+        cmd: dnf -qyv module disable postgresql
       when: ansible_distribution_major_version == '8'
+      register: dnf_result
+      changed_when: not ('Nothing to do' in dnf_result.stdout)
     - name: PostgreSQL | Be sure postgresql is installed (yum)
       yum:
         name: "{{ pg_packages }}"
@@ -38,8 +40,8 @@
   environment:
     PGSETUP_INITDB_OPTIONS: "{{ pg_initdb_options if pg_initdb_options     is defined else __pg_initdb_options }}"
   register: initdb_result
-  failed_when: not  "'not empty' in initdb_result.stdout"
-  changed_when: not  "'not empty' in initdb_result.stdout"
+  failed_when: (initdb_result.rc != 0) and ( not ('not empty' in initdb_result.stdout))
+  changed_when: (initdb_result.rc == 0) and ( not ('not empty' in initdb_result.stdout))
 
 - name: PostgreSQL | Be sure postgresqld is running and enabled
   service:
