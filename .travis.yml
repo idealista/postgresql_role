@@ -10,10 +10,18 @@ install:
   - pipenv sync
 env:
   matrix:
+    - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=12
+    - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=11
+    - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=10
+    - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=9.6
     - DOCKER_BASE_IMAGE=debian:stretch-slim PG_MAJOR_RELEASE=12
     - DOCKER_BASE_IMAGE=debian:stretch-slim PG_MAJOR_RELEASE=11
     - DOCKER_BASE_IMAGE=debian:stretch-slim PG_MAJOR_RELEASE=10
     - DOCKER_BASE_IMAGE=debian:stretch-slim PG_MAJOR_RELEASE=9.6
+    - DOCKER_BASE_IMAGE=centos:8 PG_MAJOR_RELEASE=12
+    - DOCKER_BASE_IMAGE=centos:8 PG_MAJOR_RELEASE=11
+    - DOCKER_BASE_IMAGE=centos:8 PG_MAJOR_RELEASE=10
+    - DOCKER_BASE_IMAGE=centos:8 PG_MAJOR_RELEASE=9.6
     - DOCKER_BASE_IMAGE=centos:7 PG_MAJOR_RELEASE=12
     - DOCKER_BASE_IMAGE=centos:7 PG_MAJOR_RELEASE=11
     - DOCKER_BASE_IMAGE=centos:7 PG_MAJOR_RELEASE=10
