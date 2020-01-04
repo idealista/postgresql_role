@@ -5,7 +5,7 @@
 
 # PostgreSQL Ansible role
 
-This Ansible role installs an PostgreSQL (9.6 to 12) server in a Debian 9 or RHEL 7 environment.
+This Ansible role installs an PostgreSQL (9.6 to 12) server in a Debian (9, 10) or RHEL (7, 8) environment.
 
 - [Getting Started](#getting-started)
 	- [Prerequisities](#prerequisities)
