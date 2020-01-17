@@ -3,7 +3,7 @@
 pg_basename_version: "{{ pg_major_release | regex_replace('\\.','') }}"
 pg_service: "postgresql-{{ pg_major_release }}"
 pg_basename: "postgresql{{ pg_basename_version }}"
-__pg_url_rpm: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+__pg_url_rpm: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-{{ ansible_distribution_major_version }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
 __pg_packages:
    - "{{ pg_basename }}"
    - "{{ pg_basename }}-server"
@@ -22,8 +22,8 @@ __pg_config_directory: "/var/lib/pgsql/{{ pg_major_release }}/data"
 __pg_data_directory: "/var/lib/pgsql/{{ pg_major_release }}/data"
 __pg_log_directory: "/var/log/postgresql"
 
+__pg_initdb_options: "--no-locale"
 __pg_setup_command: "{{ pg_usr_path }}/bin/postgresql-{{ pg_major_release }}-setup"
-
 pg_config_files:
    - pg_hba.conf
    - pg_ident.conf

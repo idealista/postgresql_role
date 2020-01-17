@@ -5,7 +5,7 @@ pg_major_release: 11
 pg_user: postgres
 pg_group: postgres
 
-pg_config_templates_path: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}/pg-{{ pg_major_release }}"
+pg_config_templates_path: "{{ ansible_os_family }}/pg-{{ pg_major_release }}"
 
 pg_port: 5432
 pg_service_state: started

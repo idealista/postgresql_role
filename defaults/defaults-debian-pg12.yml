@@ -79,8 +79,8 @@
 # pg_commit_delay: 0
 # pg_commit_siblings: 5
 # pg_checkpoint_timeout: 5min
-# pg_max_wal_size: 1
-# pg_min_wal_size: 80
+# pg_max_wal_size: 1GB
+# pg_min_wal_size: 80MB
 # pg_checkpoint_completion_target: 0.5
 # pg_checkpoint_flush_after: 256kB
 # pg_checkpoint_warning: 30s

@@ -1255,17 +1255,18 @@ data_sync_retry = {{ pg_data_sync_retry | default('off') }}
 #------------------------------------------------------------------------------
 
 # These options allow settings to be loaded from files other than the
-# default postgresql.conf.
+# default postgresql.conf.  Note that these are directives, not variable
+# assignments, so they can usefully be given more than once.
 
 include_dir = '{{ pg_include_dir | default('conf.d') }}'			# include files ending in '.conf' from
 					# a directory, e.g., 'conf.d'
-#include_if_exists = ''			# include file only if it exists
+#include_if_exists = '...'		# include file only if it exists
 {% if ( pg_include_if_exists is defined ) %}
-include_if_exists = '{{ pg_include_if_exists | default('') }}'
+include_if_exists = '{{ pg_include_if_exists | default('...') }}'
 {% endif %}
-#include = ''				# include file
+#include = '...'			# include file
 {% if ( pg_include is defined ) %}
-include = '{{ pg_include | default('') }}'
+include = '{{ pg_include | default('...') }}'
 {% endif %}
 
 

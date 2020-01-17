@@ -39,27 +39,15 @@
 # The default values of these variables are driven from the -D command-line
 # option or PGDATA environment variable, represented here as ConfigDir.
 
-#data_directory = 'ConfigDir'		# use data in another directory
-{% if ( pg_data_directory is defined ) %}
-data_directory = '{{ pg_data_directory | default('ConfigDir') }}'
-{% endif %}
+data_directory = '{{ pg_data_directory | default('/var/lib/postgresql/10/main') }}'		# use data in another directory
 					# (change requires restart)
-#hba_file = 'ConfigDir/pg_hba.conf'	# host-based authentication file
-{% if ( pg_hba_file is defined ) %}
-hba_file = '{{ pg_hba_file | default('ConfigDir/pg_hba.conf') }}'
-{% endif %}
+hba_file = '{{ pg_hba_file | default('/etc/postgresql/10/main/pg_hba.conf') }}'	# host-based authentication file
 					# (change requires restart)
-#ident_file = 'ConfigDir/pg_ident.conf'	# ident configuration file
-{% if ( pg_ident_file is defined ) %}
-ident_file = '{{ pg_ident_file | default('ConfigDir/pg_ident.conf') }}'
-{% endif %}
+ident_file = '{{ pg_ident_file | default('/etc/postgresql/10/main/pg_ident.conf') }}'	# ident configuration file
 					# (change requires restart)
 
 # If external_pid_file is not explicitly set, no extra PID file is written.
-#external_pid_file = ''			# write an extra PID file
-{% if ( pg_external_pid_file is defined ) %}
-external_pid_file = '{{ pg_external_pid_file | default('') }}'
-{% endif %}
+external_pid_file = '{{ pg_external_pid_file | default('/var/run/postgresql/10-main.pid') }}'			# write an extra PID file
 					# (change requires restart)
 
 
@@ -76,16 +64,13 @@ listen_addresses = '{{ pg_listen_addresses | default('localhost') }}'
 					# comma-separated list of addresses;
 					# defaults to 'localhost'; use '*' for all
 					# (change requires restart)
-#port = 5432				# (change requires restart)
-{% if ( pg_port is defined ) %}
-port = {{ pg_port | default(5432) }}
-{% endif %}
+port = {{ pg_port | default(5432) }}				# (change requires restart)
 max_connections = {{ pg_max_connections | default(100) }}			# (change requires restart)
 #superuser_reserved_connections = 3	# (change requires restart)
 {% if ( pg_superuser_reserved_connections is defined ) %}
 superuser_reserved_connections = {{ pg_superuser_reserved_connections | default(3) }}
 {% endif %}
-#unix_socket_directories = '/var/run/postgresql, /tmp'	# comma-separated list of directories
+unix_socket_directories = '{{ pg_unix_socket_directories | default('/var/run/postgresql') }}'	# comma-separated list of directories
 					# (change requires restart)
 #unix_socket_group = ''			# (change requires restart)
 {% if ( pg_unix_socket_group is defined ) %}
@@ -107,6 +92,62 @@ bonjour_name = '{{ pg_bonjour_name | default('') }}'
 {% endif %}
 					# (change requires restart)
 
+# - Security and Authentication -
+
+#authentication_timeout = 1min		# 1s-600s
+{% if ( pg_authentication_timeout is defined ) %}
+authentication_timeout = {{ pg_authentication_timeout | default('1min') }}
+{% endif %}
+ssl = {{ pg_ssl | default('on') }}
+#ssl_ciphers = 'HIGH:MEDIUM:+3DES:!aNULL' # allowed SSL ciphers
+{% if ( pg_ssl_ciphers is defined ) %}
+ssl_ciphers = '{{ pg_ssl_ciphers | default('HIGH:MEDIUM:+3DES:!aNULL') }}'
+{% endif %}
+#ssl_prefer_server_ciphers = on
+{% if ( pg_ssl_prefer_server_ciphers is defined ) %}
+ssl_prefer_server_ciphers = {{ pg_ssl_prefer_server_ciphers | default('on') }}
+{% endif %}
+#ssl_ecdh_curve = 'prime256v1'
+{% if ( pg_ssl_ecdh_curve is defined ) %}
+ssl_ecdh_curve = '{{ pg_ssl_ecdh_curve | default('prime256v1') }}'
+{% endif %}
+#ssl_dh_params_file = ''
+{% if ( pg_ssl_dh_params_file is defined ) %}
+ssl_dh_params_file = '{{ pg_ssl_dh_params_file | default('') }}'
+{% endif %}
+ssl_cert_file = '{{ pg_ssl_cert_file | default('/etc/ssl/certs/ssl-cert-snakeoil.pem') }}'
+ssl_key_file = '{{ pg_ssl_key_file | default('/etc/ssl/private/ssl-cert-snakeoil.key') }}'
+#ssl_ca_file = ''
+{% if ( pg_ssl_ca_file is defined ) %}
+ssl_ca_file = '{{ pg_ssl_ca_file | default('') }}'
+{% endif %}
+#ssl_crl_file = ''
+{% if ( pg_ssl_crl_file is defined ) %}
+ssl_crl_file = '{{ pg_ssl_crl_file | default('') }}'
+{% endif %}
+#password_encryption = md5		# md5 or scram-sha-256
+{% if ( pg_password_encryption is defined ) %}
+password_encryption = {{ pg_password_encryption | default('md5') }}
+{% endif %}
+#db_user_namespace = off
+{% if ( pg_db_user_namespace is defined ) %}
+db_user_namespace = {{ pg_db_user_namespace | default('off') }}
+{% endif %}
+#row_security = on
+{% if ( pg_row_security is defined ) %}
+row_security = {{ pg_row_security | default('on') }}
+{% endif %}
+
+# GSSAPI using Kerberos
+#krb_server_keyfile = ''
+{% if ( pg_krb_server_keyfile is defined ) %}
+krb_server_keyfile = '{{ pg_krb_server_keyfile | default('') }}'
+{% endif %}
+#krb_caseins_users = off
+{% if ( pg_krb_caseins_users is defined ) %}
+krb_caseins_users = {{ pg_krb_caseins_users | default('off') }}
+{% endif %}
+
 # - TCP Keepalives -
 # see "man 7 tcp" for details
 
@@ -125,78 +166,6 @@ tcp_keepalives_interval = {{ pg_tcp_keepalives_interval | default(0) }}
 tcp_keepalives_count = {{ pg_tcp_keepalives_count | default(0) }}
 {% endif %}
 					# 0 selects the system default
-
-# - Authentication -
-
-#authentication_timeout = 1min		# 1s-600s
-{% if ( pg_authentication_timeout is defined ) %}
-authentication_timeout = {{ pg_authentication_timeout | default('1min') }}
-{% endif %}
-#password_encryption = md5		# md5 or scram-sha-256
-{% if ( pg_password_encryption is defined ) %}
-password_encryption = {{ pg_password_encryption | default('md5') }}
-{% endif %}
-#db_user_namespace = off
-{% if ( pg_db_user_namespace is defined ) %}
-db_user_namespace = {{ pg_db_user_namespace | default('off') }}
-{% endif %}
-
-# GSSAPI using Kerberos
-#krb_server_keyfile = ''
-{% if ( pg_krb_server_keyfile is defined ) %}
-krb_server_keyfile = '{{ pg_krb_server_keyfile | default('') }}'
-{% endif %}
-#krb_caseins_users = off
-{% if ( pg_krb_caseins_users is defined ) %}
-krb_caseins_users = {{ pg_krb_caseins_users | default('off') }}
-{% endif %}
-
-# - SSL -
-
-#ssl = off
-{% if ( pg_ssl is defined ) %}
-ssl = {{ pg_ssl | default('off') }}
-{% endif %}
-#ssl_ca_file = ''
-{% if ( pg_ssl_ca_file is defined ) %}
-ssl_ca_file = '{{ pg_ssl_ca_file | default('') }}'
-{% endif %}
-#ssl_cert_file = 'server.crt'
-{% if ( pg_ssl_cert_file is defined ) %}
-ssl_cert_file = '{{ pg_ssl_cert_file | default('server.crt') }}'
-{% endif %}
-#ssl_crl_file = ''
-{% if ( pg_ssl_crl_file is defined ) %}
-ssl_crl_file = '{{ pg_ssl_crl_file | default('') }}'
-{% endif %}
-#ssl_key_file = 'server.key'
-{% if ( pg_ssl_key_file is defined ) %}
-ssl_key_file = '{{ pg_ssl_key_file | default('server.key') }}'
-{% endif %}
-#ssl_ciphers = 'HIGH:MEDIUM:+3DES:!aNULL' # allowed SSL ciphers
-{% if ( pg_ssl_ciphers is defined ) %}
-ssl_ciphers = '{{ pg_ssl_ciphers | default('HIGH:MEDIUM:+3DES:!aNULL') }}'
-{% endif %}
-#ssl_prefer_server_ciphers = on
-{% if ( pg_ssl_prefer_server_ciphers is defined ) %}
-ssl_prefer_server_ciphers = {{ pg_ssl_prefer_server_ciphers | default('on') }}
-{% endif %}
-#ssl_ecdh_curve = 'prime256v1'
-{% if ( pg_ssl_ecdh_curve is defined ) %}
-ssl_ecdh_curve = '{{ pg_ssl_ecdh_curve | default('prime256v1') }}'
-{% endif %}
-#ssl_dh_params_file = ''
-{% if ( pg_ssl_dh_params_file is defined ) %}
-ssl_dh_params_file = '{{ pg_ssl_dh_params_file | default('') }}'
-{% endif %}
-#ssl_passphrase_command = ''
-{% if ( pg_ssl_passphrase_command is defined ) %}
-ssl_passphrase_command = '{{ pg_ssl_passphrase_command | default('') }}'
-{% endif %}
-#ssl_passphrase_command_supports_reload = off
-{% if ( pg_ssl_passphrase_command_supports_reload is defined ) %}
-ssl_passphrase_command_supports_reload = {{ pg_ssl_passphrase_command_supports_reload | default('off') }}
-{% endif %}
 
 
 #------------------------------------------------------------------------------
@@ -231,6 +200,10 @@ work_mem = {{ pg_work_mem | default('4MB') }}
 {% if ( pg_maintenance_work_mem is defined ) %}
 maintenance_work_mem = {{ pg_maintenance_work_mem | default('64MB') }}
 {% endif %}
+#replacement_sort_tuples = 150000	# limits use of replacement selection sort
+{% if ( pg_replacement_sort_tuples is defined ) %}
+replacement_sort_tuples = {{ pg_replacement_sort_tuples | default(150000) }}
+{% endif %}
 #autovacuum_work_mem = -1		# min 1MB, or -1 to use maintenance_work_mem
 {% if ( pg_autovacuum_work_mem is defined ) %}
 autovacuum_work_mem = {{ pg_autovacuum_work_mem | default(-1) }}
@@ -256,13 +229,17 @@ temp_file_limit = {{ pg_temp_file_limit | default(-1) }}
 {% endif %}
 					# in kB, or -1 for no limit
 
-# - Kernel Resources -
+# - Kernel Resource Usage -
 
 #max_files_per_process = 1000		# min 25
 {% if ( pg_max_files_per_process is defined ) %}
 max_files_per_process = {{ pg_max_files_per_process | default(1000) }}
 {% endif %}
 					# (change requires restart)
+#shared_preload_libraries = ''		# (change requires restart)
+{% if ( pg_shared_preload_libraries is defined ) %}
+shared_preload_libraries = '{{ pg_shared_preload_libraries | default('') }}'
+{% endif %}
 
 # - Cost-Based Vacuum Delay -
 
@@ -293,7 +270,7 @@ vacuum_cost_limit = {{ pg_vacuum_cost_limit | default(200) }}
 {% if ( pg_bgwriter_delay is defined ) %}
 bgwriter_delay = {{ pg_bgwriter_delay | default('200ms') }}
 {% endif %}
-#bgwriter_lru_maxpages = 100		# max buffers written/round, 0 disables
+#bgwriter_lru_maxpages = 100		# 0-1000 max buffers written/round
 {% if ( pg_bgwriter_lru_maxpages is defined ) %}
 bgwriter_lru_maxpages = {{ pg_bgwriter_lru_maxpages | default(100) }}
 {% endif %}
@@ -316,23 +293,15 @@ effective_io_concurrency = {{ pg_effective_io_concurrency | default(1) }}
 {% if ( pg_max_worker_processes is defined ) %}
 max_worker_processes = {{ pg_max_worker_processes | default(8) }}
 {% endif %}
-#max_parallel_maintenance_workers = 2	# taken from max_parallel_workers
-{% if ( pg_max_parallel_maintenance_workers is defined ) %}
-max_parallel_maintenance_workers = {{ pg_max_parallel_maintenance_workers | default(2) }}
-{% endif %}
 #max_parallel_workers_per_gather = 2	# taken from max_parallel_workers
 {% if ( pg_max_parallel_workers_per_gather is defined ) %}
 max_parallel_workers_per_gather = {{ pg_max_parallel_workers_per_gather | default(2) }}
-{% endif %}
-#parallel_leader_participation = on
-{% if ( pg_parallel_leader_participation is defined ) %}
-parallel_leader_participation = {{ pg_parallel_leader_participation | default('on') }}
 {% endif %}
 #max_parallel_workers = 8		# maximum number of max_worker_processes that
 {% if ( pg_max_parallel_workers is defined ) %}
 max_parallel_workers = {{ pg_max_parallel_workers | default(8) }}
 {% endif %}
-					# can be used in parallel operations
+					# can be used in parallel queries
 #old_snapshot_threshold = -1		# 1min-60d; -1 disables; 0 is immediate
 {% if ( pg_old_snapshot_threshold is defined ) %}
 old_snapshot_threshold = {{ pg_old_snapshot_threshold | default(-1) }}
@@ -345,7 +314,7 @@ backend_flush_after = {{ pg_backend_flush_after | default(0) }}
 
 
 #------------------------------------------------------------------------------
-# WRITE-AHEAD LOG
+# WRITE AHEAD LOG
 #------------------------------------------------------------------------------
 
 # - Settings -
@@ -418,8 +387,14 @@ commit_siblings = {{ pg_commit_siblings | default(5) }}
 {% if ( pg_checkpoint_timeout is defined ) %}
 checkpoint_timeout = {{ pg_checkpoint_timeout | default('5min') }}
 {% endif %}
-max_wal_size = {{ pg_max_wal_size | default(1) }}
-min_wal_size = {{ pg_min_wal_size | default(80) }}
+#max_wal_size = 1GB
+{% if ( pg_max_wal_size is defined ) %}
+max_wal_size = {{ pg_max_wal_size | default('1GB') }}
+{% endif %}
+#min_wal_size = 80MB
+{% if ( pg_min_wal_size is defined ) %}
+min_wal_size = {{ pg_min_wal_size | default('80MB') }}
+{% endif %}
 #checkpoint_completion_target = 0.5	# checkpoint target duration, 0.0 - 1.0
 {% if ( pg_checkpoint_completion_target is defined ) %}
 checkpoint_completion_target = {{ pg_checkpoint_completion_target | default(0.5) }}
@@ -458,7 +433,7 @@ archive_timeout = {{ pg_archive_timeout | default(0) }}
 # REPLICATION
 #------------------------------------------------------------------------------
 
-# - Sending Servers -
+# - Sending Server(s) -
 
 # Set these on the master and on any standby that will send replication data.
 
@@ -467,7 +442,7 @@ archive_timeout = {{ pg_archive_timeout | default(0) }}
 max_wal_senders = {{ pg_max_wal_senders | default(10) }}
 {% endif %}
 				# (change requires restart)
-#wal_keep_segments = 0		# in logfile segments; 0 disables
+#wal_keep_segments = 0		# in logfile segments, 16MB each; 0 disables
 {% if ( pg_wal_keep_segments is defined ) %}
 wal_keep_segments = {{ pg_wal_keep_segments | default(0) }}
 {% endif %}
@@ -599,10 +574,6 @@ enable_mergejoin = {{ pg_enable_mergejoin | default('on') }}
 {% if ( pg_enable_nestloop is defined ) %}
 enable_nestloop = {{ pg_enable_nestloop | default('on') }}
 {% endif %}
-#enable_parallel_append = on
-{% if ( pg_enable_parallel_append is defined ) %}
-enable_parallel_append = {{ pg_enable_parallel_append | default('on') }}
-{% endif %}
 #enable_seqscan = on
 {% if ( pg_enable_seqscan is defined ) %}
 enable_seqscan = {{ pg_enable_seqscan | default('on') }}
@@ -614,22 +585,6 @@ enable_sort = {{ pg_enable_sort | default('on') }}
 #enable_tidscan = on
 {% if ( pg_enable_tidscan is defined ) %}
 enable_tidscan = {{ pg_enable_tidscan | default('on') }}
-{% endif %}
-#enable_partitionwise_join = off
-{% if ( pg_enable_partitionwise_join is defined ) %}
-enable_partitionwise_join = {{ pg_enable_partitionwise_join | default('off') }}
-{% endif %}
-#enable_partitionwise_aggregate = off
-{% if ( pg_enable_partitionwise_aggregate is defined ) %}
-enable_partitionwise_aggregate = {{ pg_enable_partitionwise_aggregate | default('off') }}
-{% endif %}
-#enable_parallel_hash = on
-{% if ( pg_enable_parallel_hash is defined ) %}
-enable_parallel_hash = {{ pg_enable_parallel_hash | default('on') }}
-{% endif %}
-#enable_partition_pruning = on
-{% if ( pg_enable_partition_pruning is defined ) %}
-enable_partition_pruning = {{ pg_enable_partition_pruning | default('on') }}
 {% endif %}
 
 # - Planner Cost Constants -
@@ -662,25 +617,6 @@ parallel_tuple_cost = {{ pg_parallel_tuple_cost | default(0.1) }}
 {% if ( pg_parallel_setup_cost is defined ) %}
 parallel_setup_cost = {{ pg_parallel_setup_cost | default(1000.0) }}
 {% endif %}
-
-#jit_above_cost = 100000		# perform JIT compilation if available
-{% if ( pg_jit_above_cost is defined ) %}
-jit_above_cost = {{ pg_jit_above_cost | default(100000) }}
-{% endif %}
-					# and query more expensive than this;
-					# -1 disables
-#jit_inline_above_cost = 500000		# inline small functions if query is
-{% if ( pg_jit_inline_above_cost is defined ) %}
-jit_inline_above_cost = {{ pg_jit_inline_above_cost | default(500000) }}
-{% endif %}
-					# more expensive than this; -1 disables
-#jit_optimize_above_cost = 500000	# use expensive JIT optimizations if
-{% if ( pg_jit_optimize_above_cost is defined ) %}
-jit_optimize_above_cost = {{ pg_jit_optimize_above_cost | default(500000) }}
-{% endif %}
-					# query is more expensive than this;
-					# -1 disables
-
 #min_parallel_table_scan_size = 8MB
 {% if ( pg_min_parallel_table_scan_size is defined ) %}
 min_parallel_table_scan_size = {{ pg_min_parallel_table_scan_size | default('8MB') }}
@@ -752,40 +688,51 @@ join_collapse_limit = {{ pg_join_collapse_limit | default(8) }}
 {% if ( pg_force_parallel_mode is defined ) %}
 force_parallel_mode = {{ pg_force_parallel_mode | default('off') }}
 {% endif %}
-#jit = off				# allow JIT compilation
-{% if ( pg_jit is defined ) %}
-jit = {{ pg_jit | default('off') }}
-{% endif %}
 
 
 #------------------------------------------------------------------------------
-# REPORTING AND LOGGING
+# ERROR REPORTING AND LOGGING
 #------------------------------------------------------------------------------
 
 # - Where to Log -
 
-log_destination = '{{ pg_log_destination | default('stderr') }}'		# Valid values are combinations of
+#log_destination = 'stderr'		# Valid values are combinations of
+{% if ( pg_log_destination is defined ) %}
+log_destination = '{{ pg_log_destination | default('stderr') }}'
+{% endif %}
 					# stderr, csvlog, syslog, and eventlog,
 					# depending on platform.  csvlog
 					# requires logging_collector to be on.
 
 # This is used when logging to stderr:
-logging_collector = {{ pg_logging_collector | default('on') }}			# Enable capturing of stderr and csvlog
+#logging_collector = off		# Enable capturing of stderr and csvlog
+{% if ( pg_logging_collector is defined ) %}
+logging_collector = {{ pg_logging_collector | default('off') }}
+{% endif %}
 					# into log files. Required to be on for
 					# csvlogs.
 					# (change requires restart)
 
 # These are only used if logging_collector is on:
-log_directory = '{{ pg_log_directory | default('log') }}'			# directory where log files are written,
+#log_directory = 'log'			# directory where log files are written,
+{% if ( pg_log_directory is defined ) %}
+log_directory = '{{ pg_log_directory | default('log') }}'
+{% endif %}
 					# can be absolute or relative to PGDATA
-log_filename = '{{ pg_log_filename | default('postgresql-%a.log') }}'	# log file name pattern,
+#log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'	# log file name pattern,
+{% if ( pg_log_filename is defined ) %}
+log_filename = '{{ pg_log_filename | default('postgresql-%Y-%m-%d_%H%M%S.log') }}'
+{% endif %}
 					# can include strftime() escapes
 #log_file_mode = 0600			# creation mode for log files,
 {% if ( pg_log_file_mode is defined ) %}
 log_file_mode = {{ pg_log_file_mode | default(0600) }}
 {% endif %}
 					# begin with 0 to use octal notation
-log_truncate_on_rotation = {{ pg_log_truncate_on_rotation | default('on') }}		# If on, an existing log file with the
+#log_truncate_on_rotation = off		# If on, an existing log file with the
+{% if ( pg_log_truncate_on_rotation is defined ) %}
+log_truncate_on_rotation = {{ pg_log_truncate_on_rotation | default('off') }}
+{% endif %}
 					# same name as the new log file will be
 					# truncated rather than appended to.
 					# But such truncation only occurs on
@@ -793,9 +740,15 @@ log_truncate_on_rotation = {{ pg_log_truncate_on_rotation | default('on') }}		# 
 					# or size-driven rotation.  Default is
 					# off, meaning append to existing files
 					# in all cases.
-log_rotation_age = {{ pg_log_rotation_age | default('1d') }}			# Automatic rotation of logfiles will
+#log_rotation_age = 1d			# Automatic rotation of logfiles will
+{% if ( pg_log_rotation_age is defined ) %}
+log_rotation_age = {{ pg_log_rotation_age | default('1d') }}
+{% endif %}
 					# happen after that time.  0 disables.
-log_rotation_size = {{ pg_log_rotation_size | default(0) }}			# Automatic rotation of logfiles will
+#log_rotation_size = 10MB		# Automatic rotation of logfiles will
+{% if ( pg_log_rotation_size is defined ) %}
+log_rotation_size = {{ pg_log_rotation_size | default('10MB') }}
+{% endif %}
 					# happen after that much log output.
 					# 0 disables.
 
@@ -911,7 +864,7 @@ log_error_verbosity = {{ pg_log_error_verbosity | default('default') }}
 {% if ( pg_log_hostname is defined ) %}
 log_hostname = {{ pg_log_hostname | default('off') }}
 {% endif %}
-log_line_prefix = '%m [%p] '		# special values:
+log_line_prefix = '%m [%p] %q%u@%d '		# special values:
 					#   %a = application name
 					#   %u = user name
 					#   %d = database name
@@ -950,16 +903,12 @@ log_temp_files = {{ pg_log_temp_files | default(-1) }}
 {% endif %}
 					# than the specified size in kilobytes;
 					# -1 disables, 0 logs all temp files
-log_timezone = '{{ pg_log_timezone | default('UTC') }}'
+log_timezone = '{{ pg_log_timezone | default('Etc/UTC') }}'
 
-#------------------------------------------------------------------------------
-# PROCESS TITLE
-#------------------------------------------------------------------------------
 
-#cluster_name = ''			# added to process titles if nonempty
-{% if ( pg_cluster_name is defined ) %}
-cluster_name = '{{ pg_cluster_name | default('') }}'
-{% endif %}
+# - Process Title -
+
+cluster_name = '{{ pg_cluster_name | default('10/main') }}'			# added to process titles if nonempty
 					# (change requires restart)
 #update_process_title = on
 {% if ( pg_update_process_title is defined ) %}
@@ -968,10 +917,10 @@ update_process_title = {{ pg_update_process_title | default('on') }}
 
 
 #------------------------------------------------------------------------------
-# STATISTICS
+# RUNTIME STATISTICS
 #------------------------------------------------------------------------------
 
-# - Query and Index Statistics Collector -
+# - Query/Index Statistics Collector -
 
 #track_activities = on
 {% if ( pg_track_activities is defined ) %}
@@ -993,13 +942,10 @@ track_functions = {{ pg_track_functions | default('none') }}
 {% if ( pg_track_activity_query_size is defined ) %}
 track_activity_query_size = {{ pg_track_activity_query_size | default(1024) }}
 {% endif %}
-#stats_temp_directory = 'pg_stat_tmp'
-{% if ( pg_stats_temp_directory is defined ) %}
-stats_temp_directory = '{{ pg_stats_temp_directory | default('pg_stat_tmp') }}'
-{% endif %}
+stats_temp_directory = '{{ pg_stats_temp_directory | default('/var/run/postgresql/10-main.pg_stat_tmp') }}'
 
 
-# - Monitoring -
+# - Statistics Monitoring -
 
 #log_parser_stats = off
 {% if ( pg_log_parser_stats is defined ) %}
@@ -1020,7 +966,7 @@ log_statement_stats = {{ pg_log_statement_stats | default('off') }}
 
 
 #------------------------------------------------------------------------------
-# AUTOVACUUM
+# AUTOVACUUM PARAMETERS
 #------------------------------------------------------------------------------
 
 #autovacuum = on			# Enable autovacuum subprocess?  'on'
@@ -1107,10 +1053,6 @@ client_min_messages = {{ pg_client_min_messages | default('notice') }}
 					#   warning
 					#   error
 #search_path = '"$user", public'	# schema names
-#row_security = on
-{% if ( pg_row_security is defined ) %}
-row_security = {{ pg_row_security | default('on') }}
-{% endif %}
 #default_tablespace = ''		# a tablespace name, '' uses the default
 {% if ( pg_default_tablespace is defined ) %}
 default_tablespace = '{{ pg_default_tablespace | default('') }}'
@@ -1165,12 +1107,6 @@ vacuum_multixact_freeze_min_age = {{ pg_vacuum_multixact_freeze_min_age | defaul
 {% if ( pg_vacuum_multixact_freeze_table_age is defined ) %}
 vacuum_multixact_freeze_table_age = {{ pg_vacuum_multixact_freeze_table_age | default(150000000) }}
 {% endif %}
-#vacuum_cleanup_index_scale_factor = 0.1	# fraction of total number of tuples
-{% if ( pg_vacuum_cleanup_index_scale_factor is defined ) %}
-vacuum_cleanup_index_scale_factor = {{ pg_vacuum_cleanup_index_scale_factor | default(0.1) }}
-{% endif %}
-						# before index cleanup, 0 always performs
-						# index cleanup
 #bytea_output = 'hex'			# hex, escape
 {% if ( pg_bytea_output is defined ) %}
 bytea_output = '{{ pg_bytea_output | default('hex') }}'
@@ -1199,7 +1135,7 @@ datestyle = 'iso, mdy'
 {% if ( pg_intervalstyle is defined ) %}
 intervalstyle = '{{ pg_intervalstyle | default('postgres') }}'
 {% endif %}
-timezone = '{{ pg_timezone | default('UTC') }}'
+timezone = '{{ pg_timezone | default('Etc/UTC') }}'
 #timezone_abbreviations = 'Default'     # Select the set of available time zone
 {% if ( pg_timezone_abbreviations is defined ) %}
 timezone_abbreviations = '{{ pg_timezone_abbreviations | default('Default') }}'
@@ -1221,20 +1157,20 @@ client_encoding = {{ pg_client_encoding | default('sql_ascii') }}
 					# encoding
 
 # These settings are initialized by initdb, but they can be changed.
-lc_messages = '{{ pg_lc_messages | default('C') }}'			# locale for system error message
+lc_messages = '{{ pg_lc_messages | default('C.UTF-8') }}'			# locale for system error message
 					# strings
-lc_monetary = '{{ pg_lc_monetary | default('C') }}'			# locale for monetary formatting
-lc_numeric = '{{ pg_lc_numeric | default('C') }}'			# locale for number formatting
-lc_time = '{{ pg_lc_time | default('C') }}'				# locale for time formatting
+lc_monetary = '{{ pg_lc_monetary | default('C.UTF-8') }}'			# locale for monetary formatting
+lc_numeric = '{{ pg_lc_numeric | default('C.UTF-8') }}'			# locale for number formatting
+lc_time = '{{ pg_lc_time | default('C.UTF-8') }}'				# locale for time formatting
 
 # default configuration for text search
 default_text_search_config = '{{ pg_default_text_search_config | default('pg_catalog.english') }}'
 
-# - Shared Library Preloading -
+# - Other Defaults -
 
-#shared_preload_libraries = ''	# (change requires restart)
-{% if ( pg_shared_preload_libraries is defined ) %}
-shared_preload_libraries = '{{ pg_shared_preload_libraries | default('') }}'
+#dynamic_library_path = '$libdir'
+{% if ( pg_dynamic_library_path is defined ) %}
+dynamic_library_path = '{{ pg_dynamic_library_path | default('$libdir') }}'
 {% endif %}
 #local_preload_libraries = ''
 {% if ( pg_local_preload_libraries is defined ) %}
@@ -1243,17 +1179,6 @@ local_preload_libraries = '{{ pg_local_preload_libraries | default('') }}'
 #session_preload_libraries = ''
 {% if ( pg_session_preload_libraries is defined ) %}
 session_preload_libraries = '{{ pg_session_preload_libraries | default('') }}'
-{% endif %}
-#jit_provider = 'llvmjit'		# JIT library to use
-{% if ( pg_jit_provider is defined ) %}
-jit_provider = '{{ pg_jit_provider | default('llvmjit') }}'
-{% endif %}
-
-# - Other Defaults -
-
-#dynamic_library_path = '$libdir'
-{% if ( pg_dynamic_library_path is defined ) %}
-dynamic_library_path = '{{ pg_dynamic_library_path | default('$libdir') }}'
 {% endif %}
 
 
@@ -1288,7 +1213,7 @@ max_pred_locks_per_page = {{ pg_max_pred_locks_per_page | default(2) }}
 
 
 #------------------------------------------------------------------------------
-# VERSION AND PLATFORM COMPATIBILITY
+# VERSION/PLATFORM COMPATIBILITY
 #------------------------------------------------------------------------------
 
 # - Previous PostgreSQL Versions -
@@ -1363,20 +1288,18 @@ data_sync_retry = {{ pg_data_sync_retry | default('off') }}
 #------------------------------------------------------------------------------
 
 # These options allow settings to be loaded from files other than the
-# default postgresql.conf.
+# default postgresql.conf.  Note that these are directives, not variable
+# assignments, so they can usefully be given more than once.
 
-#include_dir = ''			# include files ending in '.conf' from
-{% if ( pg_include_dir is defined ) %}
-include_dir = '{{ pg_include_dir | default('') }}'
-{% endif %}
+include_dir = '{{ pg_include_dir | default('conf.d') }}'			# include files ending in '.conf' from
 					# a directory, e.g., 'conf.d'
-#include_if_exists = ''			# include file only if it exists
+#include_if_exists = '...'		# include file only if it exists
 {% if ( pg_include_if_exists is defined ) %}
-include_if_exists = '{{ pg_include_if_exists | default('') }}'
+include_if_exists = '{{ pg_include_if_exists | default('...') }}'
 {% endif %}
-#include = ''				# include file
+#include = '...'			# include file
 {% if ( pg_include is defined ) %}
-include = '{{ pg_include | default('') }}'
+include = '{{ pg_include | default('...') }}'
 {% endif %}
 
 

@@ -228,6 +228,6 @@
 # pg_exit_on_error: off
 # pg_restart_after_crash: on
 # pg_data_sync_retry: off
-# pg_include_dir: ''
-# pg_include_if_exists: ''
-# pg_include: ''
+# pg_include_dir: '...'
+# pg_include_if_exists: '...'
+# pg_include: '...'
