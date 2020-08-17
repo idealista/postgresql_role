@@ -51,4 +51,11 @@ command:
     stderr: []
     timeout: 10000 # in milliseconds
     skip: false
-
+  users:
+    exit-status: 0
+    exec: runuser -l {{ pg_user }} -c '{{ pg_usr_path }}/bin/psql -c "\du"'
+    stdout:
+      - "example_user"
+    stderr: []
+    timeout: 10000 # in milliseconds
+    skip: false

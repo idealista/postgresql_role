@@ -31,6 +31,9 @@ provisioner:
       pggroup:
         pg_major_release: ${PG_MAJOR_RELEASE:-11}
         pg_os_tuning: false
+        pg_users:
+          - name: example_user
+            password: supersecure
 scenario:
   name: default
 

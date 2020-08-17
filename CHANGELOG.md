@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/postgresql_role/tree/develop)
+### Added
+- *Adding support to manage users* @dortegau
 
 ## [1.0.0](https://github.com/idealista/postgresql_role/tree/1.0.0)
 ### Added

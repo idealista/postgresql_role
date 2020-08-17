@@ -28,3 +28,6 @@ pg_config_files:
    - pg_hba.conf
    - pg_ident.conf
    - postgresql.conf
+
+pg_required_libs:
+   - python3-psycopg2
