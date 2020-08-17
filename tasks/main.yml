@@ -3,7 +3,7 @@
 - name: PostgreSQL | Gather OS specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_os_family }}.yml"
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
   tags: postgresql,includes
 
 - name: PostgreSQL | Setting OS specific variables (I)
@@ -14,7 +14,7 @@
 - name: PostgreSQL | Gather pg 9.6 specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_os_family }}-pg-9.6.yml"
+    - "{{ ansible_distribution }}-pg-9.6.yml"
   when: pg_major_release == "9.6"
   tags: postgresql,includes
 
@@ -27,7 +27,7 @@
   tags: postgresql,includes
 
 - name: PostgreSQL | Install postgresql
-  include_tasks: "install-{{ ansible_os_family }}.yml"
+  include_tasks: "install-{{ ansible_distribution }}.yml"
   tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Configure postgresql
