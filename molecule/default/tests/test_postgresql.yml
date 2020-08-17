@@ -55,7 +55,7 @@ command:
     exit-status: 0
     exec: runuser -l {{ pg_user }} -c '{{ pg_usr_path }}/bin/psql -c "\du"'
     stdout:
-      - "example_user"
+      - "{{ pg_users[0].name }}"
     stderr: []
     timeout: 10000 # in milliseconds
     skip: false
