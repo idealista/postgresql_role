@@ -59,3 +59,11 @@ command:
     stderr: []
     timeout: 10000 # in milliseconds
     skip: false
+  databases:
+    exit-status: 0
+    exec: runuser -l {{ pg_user }} -c '{{ pg_usr_path }}/bin/psql -c "\l"'
+    stdout:
+      - "{{ pg_databases[0].name }}"
+    stderr: []
+    timeout: 10000 # in milliseconds
+    skip: false
