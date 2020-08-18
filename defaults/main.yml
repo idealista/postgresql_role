@@ -80,3 +80,26 @@ pg_users: []
 #   session_role: # defaults to not set
 #   ssl_mode: # defaults to not set
 #   state: # defaults to 'present'
+
+# Databases
+pg_databases: []
+#   ca_cert: # defaults to not set
+#    conn_limit: # defaults to not set
+#    encoding: # defaults to 'UTF-8'
+#    lc_collate: # defaults to not set
+#    lc_ctype: # defaults to not set
+#    login_host: # defaults to 'localhost'
+#    login_password: # defaults to not set
+#    login_unix_socket: # defaults to 1st ocurrence of pg_unix_socket_directories collection
+#    login_user: # defaults to '{{ pg_user }}'
+#    maintenance_db: # defaults to not set
+#    name: # REQUIRED
+#    owner: # defaults to '{{ pg_user }}'
+#    port: # defaults to not set
+#    session_role: # defaults to not set
+#    ssl_mode: # defaults to not set
+#    state: # defaults to 'present'
+#    tablespace: # defaults to not set
+#    target: # defaults to not set
+#    target_opts: # defaults to not set
+#    template: # defaults to 'template0'

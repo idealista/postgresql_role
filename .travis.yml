@@ -30,6 +30,5 @@ script:
   - export DOCKER_BASE_IMAGE=${DOCKER_BASE_IMAGE}
   - export PG_MAJOR_RELEASE=${PG_MAJOR_RELEASE}
   - pipenv run molecule test
-
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

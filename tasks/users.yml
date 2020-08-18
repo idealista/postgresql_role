@@ -1,6 +1,6 @@
 ---
 
-- name: PostgreSQL | Manage PostgreSQL users
+- name: PostgreSQL | Manage Users
   postgresql_user:
     ca_cert: "{{ item.cacert | default(omit) }}"
     conn_limit: "{{ item.conn_limit | default(omit) }}"
@@ -26,6 +26,3 @@
   no_log: "{{ pg_users_no_log }}"
   become: true
   become_user: "{{ pg_user }}"
-  # See: https://github.com/ansible/ansible/issues/16048#issuecomment-229012509
-  vars:
-    ansible_ssh_pipelining: true

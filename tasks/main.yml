@@ -42,3 +42,7 @@
 - name: PostgreSQL | Manage Users
   include_tasks: users.yml
   tags: postgresql,postgresql-config
+
+- name: PostgreSQL | Manage Databases
+  include_tasks: databases.yml
+  tags: postgresql,postgresql-config

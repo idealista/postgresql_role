@@ -1,5 +1,4 @@
 ---
-# tasks file for postgresql# tasks/pg_config.yml
 
 - name: PostgreSQL | Add configuration files
   template:
