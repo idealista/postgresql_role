@@ -11,7 +11,7 @@
     groups: "{{ item.groups | default(omit) }}"
     login_host: "{{ item.login_host | default('localhost') }}"
     login_password: "{{ item.login_password | default(omit) }}"
-    login_unix_socket: "{{ item.login_unix_socket | default(pg_unix_socket_directories[0]) }}"
+    login_unix_socket: "{{ item.login_unix_socket | default('/var/run/postgresql') }}"
     login_user: "{{ item.login_user | default(pg_user) }}"
     name: "{{ item.name }}"
     no_password_changes: "{{ item.no_password_changes | default(omit) }}"
