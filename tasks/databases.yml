@@ -16,11 +16,11 @@
     owner: "{{ item.owner | default(pg_user) }}"
     port: "{{ item.port | default(omit) }}"
     session_role: "{{ item.session_role | default(omit) }}"
-    ssl_mode: "{{ item.ssl_mode | default(omit) }}"
+    ssl_mode: "{{ item.ssl_mode | default(omit) }}"  # noqa 206
     state: "{{ item.state | default('present') }}"
-    tablespace: "{{ item.tablespace | default(omit) }}"
-    target: "{{ item.target | default(omit) }}"
-    target_opts: "{{ item.target_opts | default(omit) }}"
+    tablespace: "{{ item.tablespace | default(omit) }}"  # noqa 206
+    target: "{{ item.target | default(omit) }}"  # noqa 206
+    target_opts: "{{ item.target_opts | default(omit) }}"  # noqa 206
     template: "{{ item.template | default('template0') }}"
   with_items: "{{ pg_databases }}"
   become: true
