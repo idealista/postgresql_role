@@ -3,12 +3,14 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
+
+lint: |
+    yamllint .
+    ansible-lint .
 
 platforms:
   - name: postgres
-    image: ${DOCKER_BASE_IMAGE:-debian:stretch-slim}
+    image: ${DOCKER_BASE_IMAGE:-debian:buster-slim}
     privileged: false
     capabilities:
       - SYS_ADMIN
@@ -29,12 +31,16 @@ provisioner:
   inventory:
     group_vars:
       pggroup:
-        pg_major_release: ${PG_MAJOR_RELEASE:-11}
+        pg_major_release: ${PG_MAJOR_RELEASE:-12}
         pg_os_tuning: false
+        pg_users_no_log: false
+        pg_users:
+          - name: example_user
+            password: supersecure
+        pg_databases:
+          - name: example_db
 scenario:
   name: default
 
 verifier:
-  name: goss
-  lint:
-    name: yamllint
+  name: ansible

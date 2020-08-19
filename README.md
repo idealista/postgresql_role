@@ -34,7 +34,7 @@ Create or add to your roles dependency file (e.g requirements.yml):
 
 ```
 - src: idealista.postgresql_role
-  version: 1.0.1
+  version: 1.1.0
   name: postgresql
 ```
 
@@ -68,8 +68,8 @@ See [molecule.yml](https://github.com/idealista/postgresql_role/blob/master/mole
 
 ## Built With
 
-![Ansible](https://img.shields.io/badge/ansible-2.9.0-green.svg)
-![Molecule](https://img.shields.io/badge/molecule-2.22.0-green.svg)
+![Ansible](https://img.shields.io/badge/ansible-2.9.10-green.svg)
+![Molecule](https://img.shields.io/badge/molecule-3.0.6-green.svg)
 
 ## Versioning
 

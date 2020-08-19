@@ -7,6 +7,9 @@ pg_group: postgres
 
 pg_config_templates_path: "{{ ansible_os_family }}/pg-{{ pg_major_release }}"
 
+pg_unix_socket_directories:
+  - /var/run/postgresql
+
 pg_port: 5432
 pg_service_state: started
 pg_service_enabled: true
@@ -52,3 +55,51 @@ pg_os_tuning: true
 #   vm.dirty_background_bytes: 314572800
 #   vm.overcommit_memory: 2
 #   vm.nr_hugepages: 3170
+
+pg_users_no_log: true  # if it's set to false the password will be printed after command execution (insecure)
+
+# Users
+pg_users: []
+# - ca_cert: # defaults to not set
+#   conn_limit: # defaults to not set
+#   db: # defaults to not set
+#   encrypted: # defaults to not set
+#   expires: # defaults to not set
+#   fail_on_user: # defaults to not set
+#   groups: # defaults to not set
+#   login_host: # defaults to localhost
+#   login_password: # defaults to not set
+#   login_unix_socket: # defaults to 1st ocurrence of pg_unix_socket_directories collection
+#   login_user: # defaults to '{{ pg_user }}'
+#   name: # REQUIRED
+#   no_password_changes: # defaults to not set
+#   password: # defaults to not set
+#   port: # defaults to not set
+#   priv: # defaults to not set
+#   role_attr_flags: # defaults to not set
+#   session_role: # defaults to not set
+#   ssl_mode: # defaults to not set
+#   state: # defaults to 'present'
+
+# Databases
+pg_databases: []
+# - ca_cert: # defaults to not set
+#   conn_limit: # defaults to not set
+#   encoding: # defaults to 'UTF-8'
+#   lc_collate: # defaults to not set
+#   lc_ctype: # defaults to not set
+#   login_host: # defaults to 'localhost'
+#   login_password: # defaults to not set
+#   login_unix_socket: # defaults to 1st ocurrence of pg_unix_socket_directories collection
+#   login_user: # defaults to '{{ pg_user }}'
+#   maintenance_db: # defaults to not set
+#   name: # REQUIRED
+#   owner: # defaults to '{{ pg_user }}'
+#   port: # defaults to not set
+#   session_role: # defaults to not set
+#   ssl_mode: # defaults to not set
+#   state: # defaults to 'present'
+#   tablespace: # defaults to not set
+#   target: # defaults to not set
+#   target_opts: # defaults to not set
+#   template: # defaults to 'template0'

@@ -24,3 +24,6 @@ pg_config_files:
    - pg_ident.conf
    - postgresql.conf
    - start.conf
+
+pg_required_libs:
+   - python-psycopg2
