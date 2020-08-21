@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/postgresql_role/tree/develop)
+
+## [1.1.0](https://github.com/idealista/postgresql_role/tree/1.1.0)
+[Full Changelog](https://github.com/idealista/postgresql_role/compare/1.0.1...1.1.0)
 ### Added
 - *[#4](https://github.com/idealista/postgresql_role/issues/4) Adding support to manage users and databases* @dortegau
 - *[#4](https://github.com/idealista/postgresql_role/issues/4) Upgraded to molecule 3 (fixes python interpreter issues in Centos 8)* @frantsao
