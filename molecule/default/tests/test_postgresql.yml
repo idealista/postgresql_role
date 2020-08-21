@@ -29,7 +29,6 @@ service:
   {{ pg_service }}:
     enabled: true
     running: true
-
 port:
   tcp:{{ pg_port }}:
     listening: true
@@ -41,7 +40,7 @@ command:
     stdout:
       - "postgres (PostgreSQL) {{ pg_major_release }}"
     stderr: []
-    timeout: 10000 # in milliseconds
+    timeout: 10000
     skip: false
   pgisready:
     exit-status: 0
@@ -49,7 +48,7 @@ command:
     stdout:
       - "accepting connections"
     stderr: []
-    timeout: 10000 # in milliseconds
+    timeout: 10000
     skip: false
   users:
     exit-status: 0
@@ -57,7 +56,7 @@ command:
     stdout:
       - "{{ pg_users[0].name }}"
     stderr: []
-    timeout: 10000 # in milliseconds
+    timeout: 10000
     skip: false
   databases:
     exit-status: 0
@@ -65,5 +64,5 @@ command:
     stdout:
       - "{{ pg_databases[0].name }}"
     stderr: []
-    timeout: 10000 # in milliseconds
+    timeout: 10000
     skip: false

@@ -7,9 +7,6 @@ pg_group: postgres
 
 pg_config_templates_path: "{{ ansible_os_family }}/pg-{{ pg_major_release }}"
 
-pg_unix_socket_directories:
-  - /var/run/postgresql
-
 pg_port: 5432
 pg_service_state: started
 pg_service_enabled: true
@@ -69,7 +66,7 @@ pg_users: []
 #   groups: # defaults to not set
 #   login_host: # defaults to localhost
 #   login_password: # defaults to not set
-#   login_unix_socket: # defaults to 1st ocurrence of pg_unix_socket_directories collection
+#   login_unix_socket: # defaults to '/var/run/postgresql'
 #   login_user: # defaults to '{{ pg_user }}'
 #   name: # REQUIRED
 #   no_password_changes: # defaults to not set
@@ -90,7 +87,7 @@ pg_databases: []
 #   lc_ctype: # defaults to not set
 #   login_host: # defaults to 'localhost'
 #   login_password: # defaults to not set
-#   login_unix_socket: # defaults to 1st ocurrence of pg_unix_socket_directories collection
+#   login_unix_socket: # defaults to '/var/run/postgresql'
 #   login_user: # defaults to '{{ pg_user }}'
 #   maintenance_db: # defaults to not set
 #   name: # REQUIRED
