@@ -1,5 +1,11 @@
 ---
 
+- name: PostgreSQL | Ensure required libs are installed
+  yum:
+    name: "{{ pg_required_libs }}"
+    state: present
+  changed_when: false
+
 - name: PostgreSQL | Setting more OS specific variables (RHEL)
   set_fact:
     pg_url_rpm: "{{ pg_url_rpm if pg_url_rpm is defined else __pg_url_rpm }}"

@@ -1,5 +1,10 @@
 ---
 
+- name: PostgreSQL | Ensure required libs are installed
+  apt:
+    name: "{{ pg_required_libs }}"
+    state: present
+
 - name: PostgreSQL | Setting more OS specific variables (Debian)
   set_fact:
     pg_deb_repo: "{{ pg_deb_repo if pg_deb_repo is defined else __pg_deb_repo }}"
