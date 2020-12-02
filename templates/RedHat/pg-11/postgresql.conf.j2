@@ -1386,3 +1386,8 @@ include = '{{ pg_include | default('...') }}'
 #------------------------------------------------------------------------------
 
 # Add settings for extensions here
+{% if ( pg_custom_options is defined )  %}
+{% for option, value in pg_custom_options.items() %}
+{{ option }} = {{ value }}
+{% endfor %}
+{% endif %}

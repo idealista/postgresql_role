@@ -100,3 +100,7 @@ pg_databases: []
 #   target: # defaults to not set
 #   target_opts: # defaults to not set
 #   template: # defaults to 'template0'
+
+# Custom options for extensions.
+pg_custom_options: {}
+#   custom_option_key: custom_option_value

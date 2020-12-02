@@ -39,6 +39,8 @@ provisioner:
             password: supersecure
         pg_databases:
           - name: example_db
+        pg_custom_options:
+          custom.option: "sample_option"
 scenario:
   name: default
 
