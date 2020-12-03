@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/postgresql_role/tree/develop)
+
+## [1.2.0](https://github.com/idealista/postgresql_role/tree/1.2.0)
+[Full Changelog](https://github.com/idealista/postgresql_role/compare/1.1.0...1.2.0)
+### Added
 - *[#10](https://github.com/idealista/postgresql_role/issues/10) Allow custom values in postgresql.conf* 
 
 ## [1.1.0](https://github.com/idealista/postgresql_role/tree/1.1.0)
