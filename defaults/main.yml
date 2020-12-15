@@ -6,10 +6,13 @@ pg_user: postgres
 pg_group: postgres
 
 pg_config_templates_path: "{{ ansible_os_family }}/pg-{{ pg_major_release }}"
+pg_systemd_templates_path: "{{ ansible_os_family }}/systemd"
 
 pg_port: 5432
 pg_service_state: started
 pg_service_enabled: true
+# Set to restart postgresql if you need a complete restart of the service i.e. changing listeners config
+pg_handler_on_config_change: "reload postgresql"
 # Only for Debian 9 env
 # Vars for environment config file:
 # pg_environment_vars:

@@ -6,5 +6,6 @@
     dest: "{{ pg_config_directory }}/{{ item }}"
     backup: true
   with_items: "{{ pg_config_files }}"
-  notify:
-    - reload postgresql
+  notify: "{{ pg_handler_on_config_change }}"
+
+- meta: flush_handlers

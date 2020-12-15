@@ -56,6 +56,10 @@ Use in a playbook:
 ## Usage
 
 Look to the [defaults vars](defaults/) and [specific OS related](vars/) files to see all the possible configuration vars.
+*Important note about custom configuration directories*
+We tried to develop the most flexible role. But, even when it's possible changing the default configuration directory, it's not recommended. This role will respect the Debian/RHEL style when deploying config files and initializing the database directory:
+* in the Debian case, the configuration files will be deployed in /etc/postgresql
+* in the RHEL case, the configuration files will be deployed in the same data directory
 
 ## Testing
 

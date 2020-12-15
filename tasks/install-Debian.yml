@@ -37,6 +37,7 @@
     - "{{ pg_config_directory }}"
     - "{{ pg_data_directory }}"
     - "{{ pg_log_directory }}"
+  notify: "restart postgresql"
 
 # Soft fail if cluster exists
 #
@@ -47,6 +48,7 @@
   become_user: "{{ pg_user }}"
   failed_when: not  "'not empty' in initdb_result.stdout"
   changed_when: not  "'not empty' in initdb_result.stdout"
+
 
 - name: PostgreSQL | Be sure postgresqld is running and enabled
   service:
