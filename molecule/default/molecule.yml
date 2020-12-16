@@ -41,6 +41,7 @@ provisioner:
           - name: example_db
         pg_custom_options:
           custom.option: "sample_option"
+        pg_data_directory: "/var/lib/data"
 scenario:
   name: default
 

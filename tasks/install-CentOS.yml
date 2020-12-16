@@ -38,13 +38,26 @@
     - "{{ pg_config_directory }}"
     - "{{ pg_data_directory }}"
     - "{{ pg_log_directory }}"
+  notify: "restart postgresql"
 
+- name: PostgreSQL | Ensure systemd unit configuration
+  template:
+    src: "{{ pg_systemd_templates_path }}/postgresql.service.j2"
+    dest: "/usr/lib/systemd/system/postgresql-{{ pg_major_release }}.service"
+    owner: root
+    group: root
+    mode: 0755
+  notify: "{{ pg_handler_on_config_change }}"
+
+- name: PostgreSQL | Systemd reload units
+  systemd:
+    daemon_reload: true
 # Soft fail if cluster exists
 #
 - name: PostgreSQL | Init database (RHEL)
   command: "{{ pg_setup_command }} initdb"
   environment:
-    PGSETUP_INITDB_OPTIONS: "{{ pg_initdb_options if pg_initdb_options     is defined else __pg_initdb_options }}"
+    PGSETUP_INITDB_OPTIONS: "{{ pg_initdb_options if pg_initdb_options is defined else __pg_initdb_options }}"
   register: initdb_result
   failed_when: (initdb_result.rc != 0) and ( not ('not empty' in initdb_result.stdout))
   changed_when: (initdb_result.rc == 0) and ( not ('not empty' in initdb_result.stdout))

@@ -45,4 +45,4 @@
 
 - name: PostgreSQL | Manage Databases
   include_tasks: databases.yml
-  tags: postgresql,postgresql-config
+  tags: postgresql,postgresql-config,postgresql-manage-databases
