@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/postgresql_role/tree/develop)
 
+## [1.3.0](https://github.com/idealista/postgresql_role/tree/1.3.0)
+[Full Changelog](https://github.com/idealista/postgresql_role/compare/1.2.0...1.3.0)
+### Fixed
+- *[#12](https://github.com/idealista/postgresql_role/issues/12) Fixed service mess when custom data dir is defined* @frantsao
+- *Updated test dependencies because security warnings* @frantsao
+### Added
+- *[#9](https://github.com/idealista/postgresql_role/issues/9) Added tag to database management tasks* @frantsao
+
 ## [1.2.0](https://github.com/idealista/postgresql_role/tree/1.2.0)
 [Full Changelog](https://github.com/idealista/postgresql_role/compare/1.1.0...1.2.0)
 ### Added
