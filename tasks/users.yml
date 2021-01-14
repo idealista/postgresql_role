@@ -26,3 +26,4 @@
   no_log: "{{ pg_users_no_log }}"
   become: true
   become_user: "{{ pg_user }}"
+  tags: postgresql,postgresql-config,postgresql-manage-users

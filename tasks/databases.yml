@@ -25,3 +25,4 @@
   with_items: "{{ pg_databases }}"
   become: true
   become_user: "{{ pg_user }}"
+  tags: postgresql,postgresql-config,postgresql-manage-databases
