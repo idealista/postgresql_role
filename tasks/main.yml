@@ -27,22 +27,22 @@
   tags: postgresql,includes
 
 - name: PostgreSQL | Install postgresql
-  include_tasks: "install-{{ ansible_distribution }}.yml"
+  import_tasks: "install-{{ ansible_distribution }}.yml"
   tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Configure postgresql
-  include_tasks: config.yml
+  import_tasks: config.yml
   tags: postgresql,postgresql-config
 
 - name: PostgreSQL | OS tuning
-  include_tasks: os-tuning.yml
+  import_tasks: os-tuning.yml
   when: pg_os_tuning
   tags: postgresql,postgresql-config
 
 - name: PostgreSQL | Manage Users
-  include_tasks: users.yml
+  import_tasks: users.yml
   tags: postgresql,postgresql-config
 
 - name: PostgreSQL | Manage Databases
-  include_tasks: databases.yml
+  import_tasks: databases.yml
   tags: postgresql,postgresql-config,postgresql-manage-databases
