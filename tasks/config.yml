@@ -7,5 +7,7 @@
     backup: true
   with_items: "{{ pg_config_files }}"
   notify: "{{ pg_handler_on_config_change }}"
+  tags: postgresql,postgresql-config
 
 - meta: flush_handlers
+  tags: postgresql,postgresql-config
