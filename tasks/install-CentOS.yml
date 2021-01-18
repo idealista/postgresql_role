@@ -5,11 +5,13 @@
     name: "{{ pg_required_libs }}"
     state: present
   changed_when: false
+  tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Setting more OS specific variables (RHEL)
   set_fact:
     pg_url_rpm: "{{ pg_url_rpm if pg_url_rpm is defined else __pg_url_rpm }}"
     pg_setup_command: "{{ pg_setup_command if pg_setup_command is defined else __pg_setup_command }}"
+  tags: postgresql,postgresql-install
 
 - block:
     - name: PostgreSQL | Be sure postgresql repo packages configured (yum)
@@ -26,6 +28,7 @@
       yum:
         name: "{{ pg_packages }}"
         state: present
+  tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Ensure needed directories exist
   file:
@@ -39,6 +42,7 @@
     - "{{ pg_data_directory }}"
     - "{{ pg_log_directory }}"
   notify: "restart postgresql"
+  tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Ensure systemd unit configuration
   template:
@@ -52,6 +56,7 @@
 - name: PostgreSQL | Systemd reload units
   systemd:
     daemon_reload: true
+  tags: postgresql,postgresql-install
 # Soft fail if cluster exists
 #
 - name: PostgreSQL | Init database (RHEL)
@@ -61,9 +66,11 @@
   register: initdb_result
   failed_when: (initdb_result.rc != 0) and ( not ('not empty' in initdb_result.stdout))
   changed_when: (initdb_result.rc == 0) and ( not ('not empty' in initdb_result.stdout))
+  tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Be sure postgresqld is running and enabled
   service:
     name: "{{ pg_service }}"
     state: "{{ pg_service_state }}"
     enabled: "{{ pg_service_enabled }}"
+  tags: postgresql,postgresql-install

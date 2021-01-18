@@ -2,7 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/postgresql_role/tree/develop)
-
+## [1.4.0](https://github.com/idealista/postgresql_role/tree/1.4.0)
+[Full Changelog](https://github.com/idealista/postgresql_role/compare/1.3.0...1.4.0)
+### Added
+- *[#15](https://github.com/idealista/postgresql_role/issues/15) Add tags to included_tasks* @vicsufer
 ## [1.3.0](https://github.com/idealista/postgresql_role/tree/1.3.0)
 [Full Changelog](https://github.com/idealista/postgresql_role/compare/1.2.0...1.3.0)
 ### Fixed
