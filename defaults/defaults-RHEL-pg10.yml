@@ -9,7 +9,7 @@
 # pg_max_connections: 100
 # pg_superuser_reserved_connections: 3
 # pg_unix_socket_group: ''
-# pg_unix_socket_permissions: 0777
+# pg_unix_socket_permissions: '0777'
 # pg_bonjour: off
 # pg_bonjour_name: ''
 # pg_authentication_timeout: 1min
@@ -133,7 +133,7 @@
 # pg_logging_collector: on
 # pg_log_directory: 'log'
 # pg_log_filename: 'postgresql-%a.log'
-# pg_log_file_mode: 0600
+# pg_log_file_mode: '0600'
 # pg_log_truncate_on_rotation: on
 # pg_log_rotation_age: 1d
 # pg_log_rotation_size: 0

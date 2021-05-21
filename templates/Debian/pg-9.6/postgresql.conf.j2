@@ -76,9 +76,9 @@ unix_socket_directories = '{{ pg_unix_socket_directories | default('/var/run/pos
 {% if ( pg_unix_socket_group is defined ) %}
 unix_socket_group = '{{ pg_unix_socket_group | default('') }}'
 {% endif %}
-#unix_socket_permissions = 0777		# begin with 0 to use octal notation
+#unix_socket_permissions = '0777'		# begin with 0 to use octal notation
 {% if ( pg_unix_socket_permissions is defined ) %}
-unix_socket_permissions = {{ pg_unix_socket_permissions | default(0777) }}
+unix_socket_permissions = {{ pg_unix_socket_permissions | default('0777') }}
 {% endif %}
 					# (change requires restart)
 #bonjour = off				# advertise server via Bonjour
@@ -697,9 +697,9 @@ log_directory = '{{ pg_log_directory | default('pg_log') }}'
 log_filename = '{{ pg_log_filename | default('postgresql-%Y-%m-%d_%H%M%S.log') }}'
 {% endif %}
 					# can include strftime() escapes
-#log_file_mode = 0600			# creation mode for log files,
+#log_file_mode = '0600'			# creation mode for log files,
 {% if ( pg_log_file_mode is defined ) %}
-log_file_mode = {{ pg_log_file_mode | default(0600) }}
+log_file_mode = {{ pg_log_file_mode | default('0600') }}
 {% endif %}
 					# begin with 0 to use octal notation
 #log_truncate_on_rotation = off		# If on, an existing log file with the
