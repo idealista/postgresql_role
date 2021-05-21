@@ -1,6 +1,6 @@
 ![Logo](https://raw.githubusercontent.com/idealista/postgresql_role/master/logo.gif)
 
-[![Build Status](https://travis-ci.org/idealista/postgresql_role.png)](https://travis-ci.org/idealista/postgresql_role)
+[![Build Status](https://travis-ci.com/idealista/postgresql_role.png)](https://travis-ci.com/idealista/postgresql_role)
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-idealista.postgresql__role-B62682.svg)](https://galaxy.ansible.com/idealista/postgresql_role)
 
 # PostgreSQL Ansible role
@@ -34,7 +34,7 @@ Create or add to your roles dependency file (e.g requirements.yml):
 
 ```
 - src: idealista.postgresql_role
-  version: 1.4.0
+  version: 1.4.1
   name: postgresql
 ```
 
