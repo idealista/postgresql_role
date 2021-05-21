@@ -32,3 +32,9 @@ script:
   - pipenv run molecule test
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  email:
+    if: branch = master
+    on_success: change
+    on_failure: always
+    recipients:
+      - desarrollo.benders@idealista.com
