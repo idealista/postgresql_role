@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/postgresql_role/tree/develop)
+- *[#28] Adding support for Debian 11* @plozano94
 
 
 ## [1.4.1](https://github.com/idealista/postgresql_role/tree/1.4.1)
