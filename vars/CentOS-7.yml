@@ -3,7 +3,7 @@
 pg_basename_version: "{{ pg_major_release | regex_replace('\\.','') }}"
 pg_service: "postgresql-{{ pg_major_release }}"
 pg_basename: "postgresql{{ pg_basename_version }}"
-__pg_url_rpm: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-{{ ansible_distribution_major_version }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+__pg_url_rpm: "http://download.postgresql.org/pub/repos/yum/reporpms/EL-{{ ansible_distribution_major_version }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
 __pg_packages:
    - "{{ pg_basename }}"
    - "{{ pg_basename }}-server"
