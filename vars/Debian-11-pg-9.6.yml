@@ -1,4 +1,0 @@
----
-__pg_packages:
-  - "{{ pg_basename }}"
-  - "postgresql-contrib-{{ pg_basename_version }}"

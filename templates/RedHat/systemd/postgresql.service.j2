@@ -37,11 +37,7 @@ Environment=PGDATA={{ pg_data_directory }}
 OOMScoreAdjust=-1000
 Environment=PG_OOM_ADJUST_FILE=/proc/self/oom_score_adj
 Environment=PG_OOM_ADJUST_VALUE=0
-{% if pg_major_release == "9.6" %}
-ExecStartPre=/usr/pgsql-{{ pg_major_release }}/bin/postgresql{{ pg_basename_version }}-check-db-dir ${PGDATA}
-{% else %}
 ExecStartPre=/usr/pgsql-{{ pg_major_release }}/bin/postgresql-{{ pg_basename_version }}-check-db-dir ${PGDATA}
-{% endif %}
 ExecStart=/usr/pgsql-{{ pg_major_release }}/bin/postmaster -D ${PGDATA}
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=mixed
