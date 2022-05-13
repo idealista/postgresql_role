@@ -2,7 +2,7 @@
 dist: xenial
 language: python
 os: linux
-python: "3.7"
+python: "3.8"
 services:
   - docker
 install:
@@ -10,22 +10,21 @@ install:
   - pipenv sync
 env:
   jobs:
+    - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=12
+    - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=11
+    - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=10
     - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=12
     - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=11
     - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=10
-    - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=9.6
     - DOCKER_BASE_IMAGE=debian:stretch-slim PG_MAJOR_RELEASE=12
     - DOCKER_BASE_IMAGE=debian:stretch-slim PG_MAJOR_RELEASE=11
     - DOCKER_BASE_IMAGE=debian:stretch-slim PG_MAJOR_RELEASE=10
-    - DOCKER_BASE_IMAGE=debian:stretch-slim PG_MAJOR_RELEASE=9.6
     - DOCKER_BASE_IMAGE=centos:8 PG_MAJOR_RELEASE=12
     - DOCKER_BASE_IMAGE=centos:8 PG_MAJOR_RELEASE=11
     - DOCKER_BASE_IMAGE=centos:8 PG_MAJOR_RELEASE=10
-    - DOCKER_BASE_IMAGE=centos:8 PG_MAJOR_RELEASE=9.6
     - DOCKER_BASE_IMAGE=centos:7 PG_MAJOR_RELEASE=12
     - DOCKER_BASE_IMAGE=centos:7 PG_MAJOR_RELEASE=11
     - DOCKER_BASE_IMAGE=centos:7 PG_MAJOR_RELEASE=10
-    - DOCKER_BASE_IMAGE=centos:7 PG_MAJOR_RELEASE=9.6
 script:
   - export DOCKER_BASE_IMAGE=${DOCKER_BASE_IMAGE}
   - export PG_MAJOR_RELEASE=${PG_MAJOR_RELEASE}
