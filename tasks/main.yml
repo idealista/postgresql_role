@@ -11,13 +11,6 @@
     pg_major_release: "{{ pg_major_release if pg_major_release is defined else __pg_major_release }}"
   tags: postgresql,includes
 
-- name: PostgreSQL | Gather pg 9.6 specific variables
-  include_vars: "{{ item }}"
-  with_first_found:
-    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}-pg-9.6.yml"
-  when: pg_major_release == "9.6"
-  tags: postgresql,includes
-
 - name: PostgreSQL | Setting OS specific variables (II)
   set_fact:
     pg_packages: "{{ pg_packages if pg_packages is defined else __pg_packages }}"
