@@ -28,3 +28,4 @@ pg_config_files:
 
 pg_required_libs:
    - python3-psycopg2
+   - gnupg

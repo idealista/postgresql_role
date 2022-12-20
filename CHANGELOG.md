@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/postgresql_role/tree/develop)
+- *[#31] Fixing sometimes missing gnupg library* @plozano94
 
 ## [1.4.2](https://github.com/idealista/postgresql_role/tree/1.4.2)
 [Full Changelog](https://github.com/idealista/postgresql_role/compare/1.4.1...1.4.2)
