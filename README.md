@@ -34,7 +34,7 @@ Create or add to your roles dependency file (e.g requirements.yml):
 
 ```
 - src: idealista.postgresql_role
-  version: 1.4.1
+  version: 1.4.2
   name: postgresql
 ```
 
