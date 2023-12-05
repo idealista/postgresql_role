@@ -31,7 +31,7 @@
         url: "{{ goss_url }}"
         dest: "{{ goss_dst }}"
         mode: 0755
-        sha256sum: "{{ goss_sha256sum }}"
+        checksum: "sha256:{{ goss_sha256sum }}"
       register: download_goss
       until: download_goss is succeeded
       retries: 3

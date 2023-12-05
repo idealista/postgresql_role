@@ -26,4 +26,4 @@ pg_config_files:
    - start.conf
 
 pg_required_libs:
-   - python-psycopg2
+   - python3-psycopg2
