@@ -89,6 +89,11 @@
 # Database administrative login by Unix domain socket
 local   all             postgres                                peer
 
+{% if ( pg_hba_declarations is defined ) %}
+{% for item in pg_hba_declarations %}
+{{ item }}
+{% endfor %}
+{% else %}
 # TYPE  DATABASE        USER            ADDRESS                 METHOD
 
 # "local" is for Unix domain socket connections only
@@ -102,8 +107,4 @@ host    all             all             ::1/128                 md5
 local   replication     all                                     peer
 host    replication     all             127.0.0.1/32            md5
 host    replication     all             ::1/128                 md5
-{% if ( pg_hba_declarations is defined ) %}
-{% for item in pg_hba_declarations %}
-{{ item }}
-{% endfor %}
 {% endif %}
