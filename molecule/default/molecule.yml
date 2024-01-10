@@ -31,7 +31,7 @@ provisioner:
   inventory:
     group_vars:
       pggroup:
-        pg_major_release: ${PG_MAJOR_RELEASE:-12}
+        pg_major_release: ${PG_MAJOR_RELEASE:-16}
         pg_os_tuning: false
         pg_users_no_log: false
         pg_users:
@@ -42,6 +42,7 @@ provisioner:
         pg_custom_options:
           custom.option: "sample_option"
         pg_data_directory: "/var/lib/data"
+        pg_password_encryption: md5
 scenario:
   name: default
 

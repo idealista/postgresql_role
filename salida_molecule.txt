@@ -1,0 +1,25 @@
+--> Test matrix
+    
+└── default
+    ├── dependency
+    ├── lint
+    ├── cleanup
+    ├── destroy
+    ├── syntax
+    ├── create
+    ├── prepare
+    ├── converge
+    ├── idempotence
+    ├── side_effect
+    ├── verify
+    ├── cleanup
+    └── destroy
+    
+--> Scenario: 'default'
+--> Action: 'dependency'
+Skipping, missing the requirements file.
+Skipping, missing the requirements file.
+--> Scenario: 'default'
+--> Action: 'lint'
+--> Executing: yamllint .
+ansible-lint .

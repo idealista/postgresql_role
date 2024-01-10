@@ -19,7 +19,7 @@
 # pg_tcp_user_timeout: 0
 # pg_client_connection_check_interval: 0
 # pg_authentication_timeout: 1min
-# pg_password_encryption: md5
+# pg_password_encryption: scram-sha-256
 # pg_db_user_namespace: off
 # pg_krb_server_keyfile: ''
 # pg_krb_caseins_users: off
@@ -39,7 +39,7 @@
 # pg_ssl_passphrase_command_supports_reload: off
 # pg_shared_buffers: 128MB
 # pg_huge_pages: try
-# pg_huge_page_size: 0 
+# pg_huge_page_size: 0
 # pg_temp_buffers: 8MB
 # pg_max_prepared_transactions: 0
 # pg_work_mem: 4MB
@@ -315,4 +315,4 @@
 #   'local   replication     all                                     peer',
 #   'host    replication     all             127.0.0.1/32            scram-sha-256',
 #   'host    replication     all             ::1/128                 scram-sha-256',
-#]
+# ]

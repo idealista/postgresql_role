@@ -19,7 +19,7 @@
 # pg_tcp_user_timeout: 0
 # pg_client_connection_check_interval: 0
 # pg_authentication_timeout: 1min
-# pg_password_encryption: md5
+# pg_password_encryption: scram-sha-256
 # pg_db_user_namespace: off
 # pg_krb_server_keyfile: ''
 # pg_krb_caseins_users: off
@@ -318,4 +318,4 @@
 #   'local   replication     all                                     peer',
 #   'host    replication     all             127.0.0.1/32            scram-sha-256',
 #   'host    replication     all             ::1/128                 scram-sha-256',
-#]
+# ]
