@@ -5,8 +5,8 @@ All notable changes to this project will be documented in this file.
 
 ## [1.4.3](https://github.com/idealista/postgresql_role/tree/1.4.3)
 [Full Changelog](https://github.com/idealista/postgresql_role/compare/1.4.2...1.4.3)
-- *Adding support for Debian 12* @ledepedro 
-- *Adding support for Postgresql 13,14,15,16* @ledepedro 
+- *[#35]Adding support for Debian 12* @ledepedro 
+- *[#35]Adding support for Postgresql 13,14,15,16* @ledepedro 
 
 ## [1.4.2](https://github.com/idealista/postgresql_role/tree/1.4.2)
 [Full Changelog](https://github.com/idealista/postgresql_role/compare/1.4.1...1.4.2)
