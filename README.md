@@ -5,7 +5,11 @@
 
 # PostgreSQL Ansible role
 
-This Ansible role installs an PostgreSQL (10 to 16) server in a Debian (9, 10,11) environment.
+This Ansible role installs an PostgreSQL (10 to 16) in a Debian environment. It has been tested for the following Debian versions:
+
+* Bookworm
+* Bulleye
+* Buster
 
 - [Getting Started](#getting-started)
 	- [Prerequisities](#prerequisities)

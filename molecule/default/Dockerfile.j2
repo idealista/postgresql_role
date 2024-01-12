@@ -10,8 +10,7 @@ FROM {{ item.image }}
 
 RUN if [ $(command -v apt-get) ]; then \
           apt-get update && \
-          apt-get install -y python3 sudo bash ca-certificates gnupg  systemd systemd-sysv  \
-          $(if apt-cache search '^python$' | grep -o -m 1 python; then echo python; fi) && \
+          apt-get install -y python3 sudo bash ca-certificates gnupg  systemd systemd-sysv &&\
           apt-get clean; \
     elif [ $(command -v dnf) ]; then \
           cd /etc/yum.repos.d/ & \
