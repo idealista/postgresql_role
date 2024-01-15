@@ -30,7 +30,7 @@ env:
 script:
   - export DOCKER_BASE_IMAGE=${DOCKER_BASE_IMAGE}
   - export PG_MAJOR_RELEASE=${PG_MAJOR_RELEASE}
-  - exportMOLECULE_NO_LOG=false
+  - export MOLECULE_NO_LOG=false
   - export MOLECULE_DEBUG=true
   - pipenv run molecule test
 notifications:
