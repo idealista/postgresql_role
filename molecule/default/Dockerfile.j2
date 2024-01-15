@@ -9,7 +9,7 @@ FROM {{ item.image }}
 
 
 RUN if [ $(command -v apt-get) ]; then \
-          apt-get update && \
+          apt-get update -y && \
           apt-get install -y python3 sudo bash ca-certificates gnupg  systemd systemd-sysv &&\
           apt-get clean; \
     elif [ $(command -v dnf) ]; then \
