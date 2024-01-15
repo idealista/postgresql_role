@@ -1,6 +1,6 @@
 ---
 
-pg_major_release: 11
+pg_major_release: 16
 
 pg_user: postgres
 pg_group: postgres
