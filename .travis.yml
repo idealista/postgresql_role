@@ -10,7 +10,7 @@ install:
   - pipenv sync
 env:
   jobs:
-    - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=16
+    - DOCKER_BASE_IMAGE=debian:12-slim PG_MAJOR_RELEASE=16
 script:
   - export DOCKER_BASE_IMAGE=${DOCKER_BASE_IMAGE}
   - export PG_MAJOR_RELEASE=${PG_MAJOR_RELEASE}
