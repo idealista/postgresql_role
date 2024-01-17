@@ -6,4 +6,4 @@ FROM {{ item.registry.url }}/{{ item.image }}
 FROM {{ item.image }}
 {% endif %}
 
-RUN apt-get update; 
+RUN apt-get update -y; 
