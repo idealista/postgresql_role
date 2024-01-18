@@ -9,7 +9,8 @@ services:
 before_install:
   # Configurar la versión de Docker
   - sudo apt-get update
-  - sudo apt-get install -y docker-ce
+  - sudo apt-get install -y docker-ce libssl-dev
+  - export PIPENV_IGNORE_VIRTUALENVS=1
 install:
   - pip install pipenv
   - pipenv sync
@@ -21,6 +22,7 @@ script:
   - export PG_MAJOR_RELEASE=${PG_MAJOR_RELEASE}
   - export MOLECULE_NO_LOG=false
   - export MOLECULE_DEBUG=true
+  - export PIPENV_IGNORE_VIRTUALENVS=1
   - pipenv run molecule test
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
