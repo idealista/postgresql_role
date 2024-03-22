@@ -1,4 +1,5 @@
 ---
+ansible_python_interpreter: "/usr/bin/python3"
 
 pg_basename_version: "{{ pg_major_release }}"
 pg_service: "postgresql"
