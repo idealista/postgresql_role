@@ -10,7 +10,7 @@ lint: |
 
 platforms:
   - name: postgres
-    image: ${DOCKER_BASE_IMAGE:-debian:buster-slim}
+    image: ${DOCKER_BASE_IMAGE:-debian:bullseye-slim}
     privileged: false
     capabilities:
       - SYS_ADMIN
@@ -48,3 +48,4 @@ scenario:
 
 verifier:
   name: ansible
+
