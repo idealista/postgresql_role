@@ -10,13 +10,6 @@ install:
   - pipenv sync
 env:
   jobs:
-#    - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=16
-#    - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=15
-#    - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=14
-#    - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=13
-#    - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=12
-#    - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=11
-#    - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=10
     - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=16
     - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=15
     - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=14

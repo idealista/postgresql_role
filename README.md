@@ -7,7 +7,6 @@
 
 This Ansible role installs an PostgreSQL (10 to 16) in a Debian environment. It has been tested for the following Debian versions:
 
-* Bookworm
 * Bulleye
 * Buster
 
