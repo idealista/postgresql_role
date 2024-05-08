@@ -10,12 +10,10 @@ lint: |
 
 platforms:
   - name: postgres
-    image: ${DOCKER_BASE_IMAGE:-debian:bullseye-slim}
+    image: ${DOCKER_BASE_IMAGE:-debian:bookworm-slim}
     privileged: false
-    capabilities:
-      - SYS_ADMIN
     volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      - '/sys/fs/cgroup:/sys/fs/cgroup'
     groups:
       - pggroup
     tmpfs:
