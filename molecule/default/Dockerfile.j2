@@ -6,19 +6,7 @@ FROM {{ item.registry.url }}/{{ item.image }}
 FROM {{ item.image }}
 {% endif %}
 
-{% if item.image is regex('stretch') %}
-    {% set distro = "stretch" %}
-{% endif %}
-
 RUN if [ $(command -v apt-get) ]; then \
-          {% if distro is defined %}
-            echo "deb http://archive.debian.org/debian/ {{ distro }} main contrib non-free" > /etc/apt/sources.list && \
-            echo "deb-src http://archive.debian.org/debian/ {{ distro }} main contrib non-free" >> /etc/apt/sources.list && \
-            echo "deb http://archive.debian.org/debian-security {{ distro }}/updates main contrib non-free" >> /etc/apt/sources.list && \
-            echo "deb-src http://archive.debian.org/debian-security {{ distro }}/updates main contrib non-free" >> /etc/apt/sources.list && \
-            echo "deb http://archive.debian.org/debian/ {{ distro }}-backports main contrib non-free" >> /etc/apt/sources.list && \
-            echo "deb-src http://archive.debian.org/debian/ {{ distro }}-backports main contrib non-free" >> /etc/apt/sources.list && \
-          {% endif %}
           apt-get update && \
           apt-get install -y python3 sudo bash ca-certificates gnupg  systemd systemd-sysv &&\
           apt-get clean; \

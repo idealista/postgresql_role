@@ -41,17 +41,9 @@
     - "{{ pg_config_directory }}"
     - "{{ pg_data_directory }}"
     - "{{ pg_log_directory }}"
+ #   - "{{ pg_bin_dir }}"
   notify: "restart postgresql"
   tags: postgresql,postgresql-install
-
-- name: PostgreSQL | Ensure systemd unit configuration
-  template:
-    src: "{{ pg_systemd_templates_path }}/postgresql.service.j2"
-    dest: "/usr/lib/systemd/system/postgresql-{{ pg_major_release }}.service"
-    owner: root
-    group: root
-    mode: 0755
-  notify: "{{ pg_handler_on_config_change }}"
 
 - name: PostgreSQL | Systemd reload units
   systemd:
