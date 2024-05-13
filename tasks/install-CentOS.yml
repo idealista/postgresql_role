@@ -41,7 +41,6 @@
     - "{{ pg_config_directory }}"
     - "{{ pg_data_directory }}"
     - "{{ pg_log_directory }}"
- #   - "{{ pg_bin_dir }}"
   notify: "restart postgresql"
   tags: postgresql,postgresql-install
 
