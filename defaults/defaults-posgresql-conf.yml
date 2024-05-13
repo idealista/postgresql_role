@@ -54,8 +54,8 @@
 # pg_max_stack_depth: 2MB
 # pg_shared_memory_type: mmap      # pg_version >= 12
 # pg_dynamic_shared_memory_type: posix
-# pg_min_dynamic_shared_memory: 0MB    # pg_version >= 14 
-# pg_vacuum_buffer_usage_limit: 256kB   # pg_version >= 16
+# pg_min_dynamic_shared_memory: 0MB    # pg_version >= 14
+# pg_vacuum_buffer_usage_limit: 256kB      # pg_version >= 16
 # pg_temp_file_limit: -1
 # pg_max_files_per_process: 1000
 # pg_vacuum_cost_delay: 0
