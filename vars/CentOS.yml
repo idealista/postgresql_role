@@ -21,11 +21,14 @@ pg_usr_path: "/usr/pgsql-{{ pg_major_release }}"
 __pg_data_directory: "/var/lib/pgsql/{{ pg_major_release }}/data"
 __pg_config_directory: "{{ pg_data_directory if pg_data_directory is defined else __pg_data_directory }}"
 __pg_bin_dir: "/usr/pgsql-{{ pg_major_release }}/bin"
-__pg_unix_socket_directories: "/var/run/postgresql"
+__pg_unix_socket_directories: "/run/postgresql, /tmp"
 __pg_log_directory: "/var/log/postgresql"
 
 __pg_initdb_options: "--no-locale"
 __pg_setup_command: "{{ pg_usr_path }}/bin/postgresql-{{ pg_major_release }}-setup"
+
+__pg_timezone: "UTC"
+__pg_locale: "C"
 
 pg_config_files:
    - pg_hba.conf

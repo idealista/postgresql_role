@@ -19,6 +19,9 @@ __pg_bin_dir: "/usr/lib/postgresql/{{ pg_basename_version }}/bin"
 __pg_unix_socket_directories: "/var/run/postgresql"
 __pg_log_directory: "/var/log/postgresql"
 
+__pg_timezone: "Etc/UTC"
+__pg_locale: "C.UTF-8"
+
 pg_config_files:
    - environment
    - pg_ctl.conf

@@ -38,9 +38,9 @@
     group: "{{ pg_group }}"
     mode: 0700
   with_items:
-    - "{{ pg_config_directory }}"
     - "{{ pg_data_directory }}"
     - "{{ pg_log_directory }}"
+    - "{{ pg_config_directory }}"
   notify: "restart postgresql"
   tags: postgresql,postgresql-install
 
@@ -64,4 +64,16 @@
     name: "{{ pg_service }}"
     state: "{{ pg_service_state }}"
     enabled: "{{ pg_service_enabled }}"
+  tags: postgresql,postgresql-install
+
+- name: PostgreSQL | Ensure needed directories exist
+  file:
+    state: directory
+    path: "{{ item }}"
+    owner: "{{ pg_user }}"
+    group: "{{ pg_group }}"
+    mode: 0700
+  with_items:
+    - "pg_include_dir"
+  when: pg_include_dir is defined
   tags: postgresql,postgresql-install

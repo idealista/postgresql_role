@@ -170,12 +170,20 @@ gss_accept_delegation = {{ pg_gss_accept_delegation | default('off') }}
 {% endif %}
 # - SSL -
 
+{% if ( pg_ssl is defined or ansible_distribution == 'Debian') %}
 ssl = {{ pg_ssl | default('on') }}
+{% else %}
+#ssl = off
+{% endif %}
 #ssl_ca_file = ''
 {% if ( pg_ssl_ca_file is defined ) %}
 ssl_ca_file = '{{ pg_ssl_ca_file | default('') }}'
 {% endif %}
+{% if ( pg_ssl_cert_file is defined or ansible_distribution == 'Debian') %}
 ssl_cert_file = '{{ pg_ssl_cert_file | default('/etc/ssl/certs/ssl-cert-snakeoil.pem') }}'
+{% else %}
+#ssl_cert_file = 'server.crt'
+{% endif %}
 #ssl_crl_file = ''
 {% if ( pg_ssl_crl_file is defined ) %}
 ssl_crl_file = '{{ pg_ssl_crl_file | default('') }}'
@@ -186,7 +194,11 @@ ssl_crl_file = '{{ pg_ssl_crl_file | default('') }}'
 ssl_crl_dir = '{{ pg_ssl_crl_dir | default('') }}'
 {% endif %}
 {% endif %}
+{% if ( pg_ssl_key_file is defined or ansible_distribution == 'Debian') %}
 ssl_key_file = '{{ pg_ssl_key_file | default('/etc/ssl/private/ssl-cert-snakeoil.key') }}'
+{% else %}
+#ssl_key_file = 'server.key'
+{% endif %}
 #ssl_ciphers = 'HIGH:MEDIUM:+3DES:!aNULL' # allowed SSL ciphers
 {% if ( pg_ssl_ciphers is defined ) %}
 ssl_ciphers = '{{ pg_ssl_ciphers | default('HIGH:MEDIUM:+3DES:!aNULL') }}'
@@ -1320,13 +1332,13 @@ log_temp_files = {{ pg_log_temp_files | default(-1) }}
 {% endif %}
 					# than the specified size in kilobytes;
 					# -1 disables, 0 logs all temp files
-log_timezone = '{{ pg_log_timezone | default('Etc/UTC') }}'
+log_timezone = '{{ pg_log_timezone | default(__pg_timezone) }}'
 
 #------------------------------------------------------------------------------
 # PROCESS TITLE
 #------------------------------------------------------------------------------
 
-cluster_name = '{{ pg_cluster_name | default('{{ pg_major_release }}/main') }}'			# added to process titles if nonempty
+cluster_name = '{{ pg_cluster_name | default( pg_major_release  ~ "/main") }}'		# added to process titles if nonempty
 					# (change requires restart)
 #update_process_title = on
 {% if ( pg_update_process_title is defined ) %}
@@ -1631,7 +1643,7 @@ datestyle = 'iso, mdy'
 {% if ( pg_intervalstyle is defined ) %}
 intervalstyle = '{{ pg_intervalstyle | default('postgres') }}'
 {% endif %}
-timezone = '{{ pg_timezone | default('Etc/UTC') }}'
+timezone = '{{ pg_timezone | default(__pg_timezone) }}'
 #timezone_abbreviations = 'Default'     # Select the set of available time zone
 {% if ( pg_timezone_abbreviations is defined ) %}
 timezone_abbreviations = '{{ pg_timezone_abbreviations | default('Default') }}'
@@ -1654,11 +1666,11 @@ client_encoding = {{ pg_client_encoding | default('sql_ascii') }}
 					# encoding
 
 # These settings are initialized by initdb, but they can be changed.
-lc_messages = '{{ pg_lc_messages | default('C.UTF-8') }}'			# locale for system error message
+lc_messages = '{{ pg_lc_messages | default(__pg_locale) }}'			# locale for system error message
 					# strings
-lc_monetary = '{{ pg_lc_monetary | default('C.UTF-8') }}'			# locale for monetary formatting
-lc_numeric = '{{ pg_lc_numeric | default('C.UTF-8') }}'			# locale for number formatting
-lc_time = '{{ pg_lc_time | default('C.UTF-8') }}'				# locale for time formatting
+lc_monetary = '{{ pg_lc_monetary | default(__pg_locale) }}'			# locale for monetary formatting
+lc_numeric = '{{ pg_lc_numeric | default(__pg_locale) }}'			# locale for number formatting
+lc_time = '{{ pg_lc_time | default(__pg_locale) }}'				# locale for time formatting
 
 {% if ( pg_major_release | int >= 16 ) %}
 #icu_validation_level = warning		# report ICU locale validation
@@ -1825,7 +1837,11 @@ recovery_init_sync_method = {{ pg_recovery_init_sync_method | default('fsync') }
 # default postgresql.conf.  Note that these are directives, not variable
 # assignments, so they can usefully be given more than once.
 
+{% if ( pg_include_dir is defined or ansible_distribution == 'Debian') %}
 include_dir = '{{ pg_include_dir | default('conf.d') }}'			# include files ending in '.conf' from
+{% else %}
+#include_dir = '...'			# include files ending in '.conf' from
+{% endif %}
 					# a directory, e.g., 'conf.d'
 #include_if_exists = '...'		# include file only if it exists
 {% if ( pg_include_if_exists is defined ) %}

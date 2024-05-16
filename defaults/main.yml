@@ -5,7 +5,6 @@ pg_major_release: 16
 pg_user: postgres
 pg_group: postgres
 
-pg_config_templates_path: "{{ ansible_os_family }}/pg-{{ pg_major_release }}"
 pg_systemd_templates_path: "{{ ansible_os_family }}/systemd"
 
 pg_port: 5432
@@ -108,16 +107,18 @@ pg_databases: []
 pg_custom_options: {}
 #   custom_option_key: custom_option_value
 
+pg_password_encryption: "{{ 'scram-sha-256' if pg_major_release | int > 13 else 'md5' }}"
+
 __pg_hba_declarations_default: [
    '# "local" is for Unix domain socket connections only',
-   'local   all             all                                     peer',
-   '# IPv4 local connections:',
-   'host    all             all             127.0.0.1/32            scram-sha-256',
-   '# IPv6 local connections:',
-   'host    all             all             ::1/128                 scram-sha-256',
-   '# Allow replication connections from localhost, by a user with the',
-   '# replication privilege.',
-   'local   replication     all                                     peer',
-   'host    replication     all             127.0.0.1/32            scram-sha-256',
-   'host    replication     all             ::1/128                 scram-sha-256',
+   "local   all             all                                     peer",
+   "# IPv4 local connections:",
+   "host    all             all             127.0.0.1/32            {{ pg_password_encryption }}",
+   "# IPv6 local connections:",
+   "host    all             all             ::1/128                 {{ pg_password_encryption }}",
+   "# Allow replication connections from localhost, by a user with the",
+   "# replication privilege.",
+   "local   replication     all                                     peer",
+   "host    replication     all             127.0.0.1/32            {{ pg_password_encryption }}",
+   "host    replication     all             ::1/128                 {{ pg_password_encryption }}",
 ]
