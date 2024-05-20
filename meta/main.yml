@@ -11,3 +11,7 @@ galaxy_info:
         - stretch
         - buster
         - bullseye
+    - name: Centos
+      versions:
+        - 8
+        - 7
