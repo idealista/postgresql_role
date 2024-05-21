@@ -3,7 +3,7 @@
 pg_basename_version: "{{ pg_major_release | regex_replace('\\.','') }}"
 pg_service: "postgresql-{{ pg_major_release }}"
 pg_basename: "postgresql{{ pg_basename_version }}"
-__pg_url_rpm: "http://download.postgresql.org/pub/repos/yum/reporpms/EL-{{ ansible_distribution_major_version }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+__pg_url_rpm: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-{{ ansible_distribution_major_version }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
 __pg_packages:
    - "{{ pg_basename }}"
    - "{{ pg_basename }}-server"
@@ -20,14 +20,23 @@ __pg_packages:
 pg_usr_path: "/usr/pgsql-{{ pg_major_release }}"
 __pg_data_directory: "/var/lib/pgsql/{{ pg_major_release }}/data"
 __pg_config_directory: "{{ pg_data_directory if pg_data_directory is defined else __pg_data_directory }}"
+__pg_bin_dir: "/usr/pgsql-{{ pg_major_release }}/bin"
+__pg_unix_socket_directories: "/run/postgresql, /tmp"
 __pg_log_directory: "/var/log/postgresql"
 
 __pg_initdb_options: "--no-locale"
 __pg_setup_command: "{{ pg_usr_path }}/bin/postgresql-{{ pg_major_release }}-setup"
+
+__pg_timezone: "UTC"
+__pg_locale: "C"
+
 pg_config_files:
    - pg_hba.conf
    - pg_ident.conf
    - postgresql.conf
 
-pg_required_libs:
-   - python-psycopg2
+pg_os_specific_required_libs:
+   CentOS-7: [python-psycopg2]
+   CentOS-8: [python3-psycopg2]
+
+pg_required_libs: "{{ pg_os_specific_required_libs[ansible_distribution ~ '-' ~ ansible_distribution_major_version] }}"

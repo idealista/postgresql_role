@@ -6,4 +6,3 @@ pg_port: 5432
 pg_service_state: started
 pg_service_enabled: true
 pg_automatic_startup_configuration: auto
-

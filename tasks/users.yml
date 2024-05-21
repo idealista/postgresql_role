@@ -19,11 +19,12 @@
     port: "{{ item.port | default(omit) }}"
     priv: "{{ item.priv | default(omit) }}"
     role_attr_flags: "{{ item.role_attr_flags | default(omit) }}"
-    session_role: "{{ item.session_role | default(omit) }}"  # noqa 206
+    session_role: "{{ item.session_role | default(omit) }}"  # noqa 206
     ssl_mode: "{{ item.ssl_mode | default(omit) }}"
     state: "{{ item.state | default('present') }}"
   with_items: "{{ pg_users }}"
   no_log: "{{ pg_users_no_log }}"
   become: true
   become_user: "{{ pg_user }}"
+  changed_when: false
   tags: postgresql,postgresql-config,postgresql-manage-users

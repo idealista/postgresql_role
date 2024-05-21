@@ -15,7 +15,12 @@ __pg_packages:
 pg_usr_path: "/usr/lib/postgresql/{{ pg_major_release }}"
 __pg_config_directory: "/etc/postgresql/{{ pg_basename_version }}/main"
 __pg_data_directory: "/var/lib/postgresql/{{ pg_basename_version }}/main"
+__pg_bin_dir: "/usr/lib/postgresql/{{ pg_basename_version }}/bin"
+__pg_unix_socket_directories: "/var/run/postgresql"
 __pg_log_directory: "/var/log/postgresql"
+
+__pg_timezone: "Etc/UTC"
+__pg_locale: "C.UTF-8"
 
 pg_config_files:
    - environment
@@ -25,5 +30,10 @@ pg_config_files:
    - postgresql.conf
    - start.conf
 
-pg_required_libs:
-   - python-psycopg2
+pg_os_specific_required_libs:
+   Debian-9: [python-psycopg2]
+   Debian-10: [python3-psycopg2]
+   Debian-11: [python3-psycopg2]
+   Debian-12: [python3-psycopg2]
+
+pg_required_libs: "{{ pg_os_specific_required_libs[ansible_distribution ~ '-' ~ ansible_distribution_major_version] }}"

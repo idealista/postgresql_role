@@ -16,7 +16,7 @@
     goss_format: documentation
   vars_files:
     - pg_vars.yml
-    - "../../vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "../../vars/{{ ansible_distribution }}.yml"
 
   tasks:
     - name: PostgreSQL | Setting OS specific variables
