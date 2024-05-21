@@ -8,9 +8,9 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
-        - stretch
         - buster
         - bullseye
+        - bookworm
     - name: Centos
       versions:
         - 8
