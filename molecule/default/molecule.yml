@@ -10,12 +10,10 @@ lint: |
 
 platforms:
   - name: postgres
-    image: ${DOCKER_BASE_IMAGE:-debian:buster-slim}
+    image: ${DOCKER_BASE_IMAGE:-debian:bookworm-slim}
     privileged: false
-    capabilities:
-      - SYS_ADMIN
     volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+      - '/sys/fs/cgroup:/sys/fs/cgroup'
     groups:
       - pggroup
     tmpfs:
@@ -31,7 +29,7 @@ provisioner:
   inventory:
     group_vars:
       pggroup:
-        pg_major_release: ${PG_MAJOR_RELEASE:-12}
+        pg_major_release: ${PG_MAJOR_RELEASE:-16}
         pg_os_tuning: false
         pg_users_no_log: false
         pg_users:
@@ -39,11 +37,9 @@ provisioner:
             password: supersecure
         pg_databases:
           - name: example_db
-        pg_custom_options:
-          custom.option: "sample_option"
-        pg_data_directory: "/var/lib/data"
 scenario:
   name: default
 
 verifier:
   name: ansible
+

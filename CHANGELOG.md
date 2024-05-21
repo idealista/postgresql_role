@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/idealista/postgresql_role/tree/develop)
 
+## [2.0.0](https://github.com/idealista/postgresql_role/tree/2.0.0)
+[Full Changelog](https://github.com/idealista/postgresql_role/compare/1.4.2...2.0.0)
+### Added
+- *[#35](https://github.com/idealista/postgresql_role/issues/35) Adding support for Debian 12* @ledepedro 
+- *[#35](https://github.com/idealista/postgresql_role/issues/35) Adding support for Postgresql 13,14,15,16* @ledepedro 
+### Changed 
+- *Changed the default version of PostgreSQL to 16* @ledepedro
+
 ## [1.4.2](https://github.com/idealista/postgresql_role/tree/1.4.2)
 [Full Changelog](https://github.com/idealista/postgresql_role/compare/1.4.1...1.4.2)
 - *[#28] Adding support for Debian 11* @plozano94

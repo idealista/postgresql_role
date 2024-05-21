@@ -3,7 +3,7 @@
 - name: PostgreSQL | Gather OS specific variables
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
   tags: postgresql,includes
 
 - name: PostgreSQL | Setting OS specific variables (I)
@@ -17,6 +17,8 @@
     pg_config_directory: "{{ pg_config_directory if pg_config_directory is defined else __pg_config_directory }}"
     pg_data_directory: "{{ pg_data_directory if pg_data_directory is defined else __pg_data_directory }}"
     pg_log_directory: "{{ pg_log_directory if pg_log_directory is defined else __pg_log_directory }}"
+    pg_unix_socket_directories: "{{ pg_unixpg_unix_socket_directories_socket_dir if pg_unix_socket_directories is defined else __pg_unix_socket_directories }}"
+    pg_bin_dir: "{{ pg_bin_dir if pg_bin_dir is defined else __pg_bin_dir }}"
   tags: postgresql,includes
 
 - name: PostgreSQL | Install postgresql

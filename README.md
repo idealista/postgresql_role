@@ -5,7 +5,11 @@
 
 # PostgreSQL Ansible role
 
-This Ansible role installs an PostgreSQL (10 to 12) server in a Debian (9, 10) or RHEL (7, 8) environment.
+This Ansible role installs an PostgreSQL (10 to 16) in a Debian environment. It has been tested for the following Debian versions:
+
+* Bookworm
+* Bulleye
+* Buster
 
 - [Getting Started](#getting-started)
 	- [Prerequisities](#prerequisities)
@@ -34,7 +38,7 @@ Create or add to your roles dependency file (e.g requirements.yml):
 
 ```
 - src: idealista.postgresql_role
-  version: 1.4.1
+  version: 2.0.0
   name: postgresql
 ```
 
