@@ -1,37 +1,37 @@
 ---
 
 - name: PostgreSQL | Ensure required libs are installed
-  yum:
+  ansible.builtin.package:
     name: "{{ pg_required_libs }}"
     state: present
   changed_when: false
   tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Setting more OS specific variables (RHEL)
-  set_fact:
+  ansible.builtin.set_fact:
     pg_url_rpm: "{{ pg_url_rpm if pg_url_rpm is defined else __pg_url_rpm }}"
     pg_setup_command: "{{ pg_setup_command if pg_setup_command is defined else __pg_setup_command }}"
   tags: postgresql,postgresql-install
 
 - block:
-    - name: PostgreSQL | Be sure postgresql repo packages configured (yum)
-      yum:
+    - name: PostgreSQL | Be sure postgresql repo packages configured
+      ansible.builtin.package:
         name: "{{ pg_url_rpm }}"
         state: present
     - name: PostgreSQL | Disable postgresql module (dnf)
-      command:
+      ansible.builtin.command:
         cmd: dnf -qyv module disable postgresql
       when: ansible_distribution_major_version == '8'
       register: dnf_result
       changed_when: not ('Nothing to do' in dnf_result.stdout)
-    - name: PostgreSQL | Be sure postgresql is installed (yum)
-      yum:
+    - name: PostgreSQL | Be sure postgresql is installed
+      ansible.builtin.package:
         name: "{{ pg_packages }}"
         state: present
   tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Ensure needed directories exist
-  file:
+  ansible.builtin.file:
     state: directory
     path: "{{ item }}"
     owner: "{{ pg_user }}"
@@ -45,13 +45,13 @@
   tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Systemd reload units
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: true
   tags: postgresql,postgresql-install
 # Soft fail if cluster exists
 #
 - name: PostgreSQL | Init database (RHEL)
-  command: "{{ pg_setup_command }} initdb"
+  ansible.builtin.command: "{{ pg_setup_command }} initdb"
   environment:
     PGSETUP_INITDB_OPTIONS: "{{ pg_initdb_options if pg_initdb_options is defined else __pg_initdb_options }}"
   register: initdb_result
@@ -60,14 +60,14 @@
   tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Be sure postgresqld is running and enabled
-  service:
+  ansible.builtin.service:
     name: "{{ pg_service }}"
     state: "{{ pg_service_state }}"
     enabled: "{{ pg_service_enabled }}"
   tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Ensure needed directories exist
-  file:
+  ansible.builtin.file:
     state: directory
     path: "{{ item }}"
     owner: "{{ pg_user }}"

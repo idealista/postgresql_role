@@ -1,7 +1,7 @@
 ---
 
 - name: PostgreSQL | Manage Users
-  postgresql_user:
+  community.postgresql.postgresql_user:
     ca_cert: "{{ item.cacert | default(omit) }}"
     conn_limit: "{{ item.conn_limit | default(omit) }}"
     db: "{{ item.db | default(omit) }}"
