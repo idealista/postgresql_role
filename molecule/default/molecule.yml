@@ -29,7 +29,7 @@ provisioner:
   inventory:
     group_vars:
       pggroup:
-        pg_major_release: ${PG_MAJOR_RELEASE:-16}
+        pg_major_release: ${PG_MAJOR_RELEASE:-17}
         pg_os_tuning: false
         pg_users_no_log: false
         pg_users:

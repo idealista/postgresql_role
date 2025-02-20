@@ -1,5 +1,5 @@
 ---
 - name: Converge
-  hosts: all
+  hosts: pggroup
   roles:
-    - role: postgresql_role
+    - role: idealista.postgresql_role
