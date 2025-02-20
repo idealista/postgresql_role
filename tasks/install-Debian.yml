@@ -12,7 +12,9 @@
     pg_deb_key: "{{ pg_deb_key if pg_deb_key is defined else __pg_deb_key }}"
   tags: postgresql,postgresql-install
 
-- block:
+- name: PostgreSQL | Configure PostgreSQL repository and install packages
+  tags: postgresql,postgresql-install
+  block:
     - name: PostgreSQL | Be sure postgresql.org key is present
       ansible.builtin.apt_key:
         url: "{{ pg_deb_key }}"
@@ -27,7 +29,6 @@
         name: "{{ pg_packages }}"
         state: present
         update_cache: true
-  tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Ensure needed directories exist
   ansible.builtin.file:

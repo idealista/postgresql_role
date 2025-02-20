@@ -13,7 +13,9 @@
     pg_setup_command: "{{ pg_setup_command if pg_setup_command is defined else __pg_setup_command }}"
   tags: postgresql,postgresql-install
 
-- block:
+- name: PostgreSQL | Install and configure PostgreSQL
+  tags: postgresql,postgresql-install
+  block:
     - name: PostgreSQL | Be sure postgresql repo packages configured
       ansible.builtin.package:
         name: "{{ pg_url_rpm }}"
@@ -28,7 +30,6 @@
       ansible.builtin.package:
         name: "{{ pg_packages }}"
         state: present
-  tags: postgresql,postgresql-install
 
 - name: PostgreSQL | Ensure needed directories exist
   ansible.builtin.file:
