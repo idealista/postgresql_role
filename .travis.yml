@@ -2,7 +2,7 @@
 dist: focal
 language: python
 os: linux
-python: "3.9"
+python: "3.12"
 services:
   - docker
 before_install:
@@ -13,35 +13,27 @@ install:
   - pipenv sync
 env:
   jobs:
+    - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=17
     - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=16
     - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=15
     - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=14
     - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=13
-    - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=12
-    - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=11
-    - DOCKER_BASE_IMAGE=debian:bookworm-slim PG_MAJOR_RELEASE=10
+    - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=17
     - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=16
     - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=15
     - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=14
     - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=13
-    - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=12
-    - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=11
-    - DOCKER_BASE_IMAGE=debian:bullseye-slim PG_MAJOR_RELEASE=10
     - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=16
     - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=15
     - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=14
     - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=13
-    - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=11
-    - DOCKER_BASE_IMAGE=debian:buster-slim PG_MAJOR_RELEASE=10
     - DOCKER_BASE_IMAGE=centos:8 PG_MAJOR_RELEASE=16
     - DOCKER_BASE_IMAGE=centos:8 PG_MAJOR_RELEASE=15
     - DOCKER_BASE_IMAGE=centos:8 PG_MAJOR_RELEASE=14
     - DOCKER_BASE_IMAGE=centos:8 PG_MAJOR_RELEASE=13
-    - DOCKER_BASE_IMAGE=centos:8 PG_MAJOR_RELEASE=12
     - DOCKER_BASE_IMAGE=centos:7 PG_MAJOR_RELEASE=15
     - DOCKER_BASE_IMAGE=centos:7 PG_MAJOR_RELEASE=14
     - DOCKER_BASE_IMAGE=centos:7 PG_MAJOR_RELEASE=13
-    - DOCKER_BASE_IMAGE=centos:7 PG_MAJOR_RELEASE=12
 script:
   - export DOCKER_BASE_IMAGE=${DOCKER_BASE_IMAGE}
   - export PG_MAJOR_RELEASE=${PG_MAJOR_RELEASE}

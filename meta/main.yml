@@ -1,4 +1,5 @@
 ---
+
 galaxy_info:
   company: Idealista S.A.U
   author: idealista
@@ -15,3 +16,6 @@ galaxy_info:
       versions:
         - 8
         - 7
+  galaxy_tags:
+    - postgresql
+    - database
