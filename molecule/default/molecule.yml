@@ -12,8 +12,18 @@ platforms:
   - name: postgres
     image: ${DOCKER_BASE_IMAGE:-debian:bookworm-slim}
     privileged: false
+    exposed_ports:
+      - 80/tcp
+      - 9100/tcp
+      - 5432/tcp
+    published_ports:
+      - 0.0.0.0:5432:5432/tcp
     volumes:
-      - '/sys/fs/cgroup:/sys/fs/cgroup'
+      - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    cgroupns_mode: host
+    capabilities:
+      - SYS_ADMIN
     groups:
       - pggroup
     tmpfs:
@@ -29,7 +39,7 @@ provisioner:
   inventory:
     group_vars:
       pggroup:
-        pg_major_release: ${PG_MAJOR_RELEASE:-16}
+        pg_major_release: ${PG_MAJOR_RELEASE:-17}
         pg_os_tuning: false
         pg_users_no_log: false
         pg_users:
@@ -42,4 +52,3 @@ scenario:
 
 verifier:
   name: ansible
-

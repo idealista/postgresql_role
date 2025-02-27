@@ -1,7 +1,7 @@
 ---
 
 - name: PostgreSQL | Manage Databases
-  postgresql_db:
+  community.postgresql.postgresql_db:
     ca_cert: "{{ item.cacert | default(omit) }}"
     conn_limit: "{{ item.conn_limit | default(omit) }}"
     encoding: "{{ item.encoding | default('UTF-8') }}"

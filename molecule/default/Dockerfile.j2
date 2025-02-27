@@ -1,9 +1,9 @@
 # Molecule managed
 
 {% if item.registry is defined %}
-FROM {{ item.registry.url }}/{{ item.image }}
+FROM --platform={{ item.platform | default('amd64') }} {{ item.registry.url }}/{{ item.image }}
 {% else %}
-FROM {{ item.image }}
+FROM --platform={{ item.platform | default('amd64') }} {{ item.image }}
 {% endif %}
 
 RUN if [ $(command -v apt-get) ]; then \

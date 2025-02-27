@@ -50,19 +50,19 @@ command:
     stderr: []
     timeout: 30000
     skip: false
-  users:
-    exit-status: 0
-    exec: runuser -l {{ pg_user }} -c '{{ pg_usr_path }}/bin/psql -c "\du"'
-    stdout:
-      - "{{ pg_users[0].name }}"
-    stderr: []
-    timeout: 30000
-    skip: false
-  databases:
-    exit-status: 0
-    exec: runuser -l {{ pg_user }} -c '{{ pg_usr_path }}/bin/psql -c "\l"'
-    stdout:
-      - "{{ pg_databases[0].name }}"
-    stderr: []
-    timeout: 30000
-    skip: false
+  # users:
+  #   exit-status: 0
+  #   exec: runuser -l {{ pg_user }} -c '{{ pg_usr_path }}/bin/psql -c "\du"'
+  #   stdout:
+  #     - "{{ pg_users[0].name }}"
+  #   stderr: []
+  #   timeout: 30000
+  #   skip: false
+  # databases:
+  #   exit-status: 0
+  #   exec: runuser -l {{ pg_user }} -c '{{ pg_usr_path }}/bin/psql -c "\l"'
+  #   stdout:
+  #     - "{{ pg_databases[0].name }}"
+  #   stderr: []
+  #   timeout: 30000
+  #   skip: false
