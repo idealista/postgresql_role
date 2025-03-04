@@ -30,13 +30,13 @@ __pg_setup_command: "{{ pg_usr_path }}/bin/postgresql-{{ pg_major_release }}-set
 __pg_timezone: "UTC"
 __pg_locale: "C"
 
-pg_config_files:
+__pg_config_files:
    - pg_hba.conf
    - pg_ident.conf
    - postgresql.conf
 
-pg_os_specific_required_libs:
+__pg_os_specific_required_libs:
    CentOS-7: [python-psycopg2]
    CentOS-8: [python3-psycopg2]
 
-pg_required_libs: "{{ pg_os_specific_required_libs[ansible_distribution ~ '-' ~ ansible_distribution_major_version] }}"
+__pg_required_libs: "{{ __pg_os_specific_required_libs[ansible_distribution ~ '-' ~ ansible_distribution_major_version] }}"

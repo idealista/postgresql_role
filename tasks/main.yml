@@ -15,10 +15,12 @@
   ansible.builtin.set_fact:
     pg_packages: "{{ pg_packages if pg_packages is defined else __pg_packages }}"
     pg_config_directory: "{{ pg_config_directory if pg_config_directory is defined else __pg_config_directory }}"
+    pg_config_files: "{{ pg_config_files if pg_config_files is defined else __pg_config_files }}"
     pg_data_directory: "{{ pg_data_directory if pg_data_directory is defined else __pg_data_directory }}"
     pg_log_directory: "{{ pg_log_directory if pg_log_directory is defined else __pg_log_directory }}"
     pg_unix_socket_directories: "{{ pg_unixpg_unix_socket_directories_socket_dir if pg_unix_socket_directories is defined else __pg_unix_socket_directories }}"
     pg_bin_dir: "{{ pg_bin_dir if pg_bin_dir is defined else __pg_bin_dir }}"
+    pg_required_libs: "{{ pg_required_libs if pg_required_libs is defined else __pg_required_libs }}"
   tags: postgresql,includes
 
 - name: PostgreSQL | Install postgresql
