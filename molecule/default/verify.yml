@@ -24,6 +24,8 @@
         pg_config_directory: "{{ pg_config_directory if pg_config_directory is defined else __pg_config_directory }}"
         pg_data_directory: "{{ pg_data_directory if pg_data_directory is defined else __pg_data_directory }}"
         pg_log_directory: "{{ pg_log_directory if pg_log_directory is defined else __pg_log_directory }}"
+        pg_config_files: "{{ pg_config_files if pg_config_files is defined else __pg_config_files }}"
+        pg_required_libs: "{{ pg_required_libs if pg_required_libs is defined else __pg_required_libs }}"
 
     - name: Download and install Goss
       ansible.builtin.get_url:
